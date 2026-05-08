@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Claude Academy — интерактивный курс по освоению Claude AI от основ до экспертного уровня">
+<meta name="theme-color" content="#6667AB">
+<meta property="og:title" content="Claude Academy 🎓">
+<meta property="og:description" content="12 треков · 46 миссий · от основ до AI-архитектора">
+<meta property="og:type" content="website">
+<title>Claude Academy 🎓</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* PANTONE 2020-2025 Color System */
+:root{
+  --bg:#FDF6EE;--white:#FFF;--border:#E8D5C5;--shadow:0 2px 12px rgba(150,114,89,.1);--shadow-lg:0 8px 32px rgba(150,114,89,.18);
+  --mocha:#967259;--mocha-l:#F5EDE6;--mocha-d:#7A5544;
+  --peach:#FF9C6B;--peach-l:#FFF3EC;
+  --peri:#6667AB;--peri-l:#EDEDF7;--peri-d:#4F50A0;
+  --magenta:#BB2649;--magenta-l:#FDF0F3;
+  --gold:#C8960C;--gold-l:#FEF5D9;
+  --green:#3DA876;--green-l:#EBF8F3;
+  --blue:#3B82C4;--blue-l:#EBF3FC;
+  --t1:#2C1A0E;--t2:#7A5C4A;--t3:#B8A498;
+  --r:14px;--rs:10px;--rf:99px;
+  --easy:#3DA876;--med:#F59E0B;--hard:#E05A2B;--exp:#BB2649;
+  --fh:'Nunito',system-ui,sans-serif;--fb:'DM Sans',system-ui,sans-serif;--fm:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--t1);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--fh)}
+button{font-family:var(--fb);cursor:pointer;border:none;outline:none;transition:all .18s}
+a{color:var(--peri)}a:hover{text-decoration:underline}
+/* Layout */
+.app-pc{display:grid;grid-template-columns:268px 1fr;min-height:100vh}
+.app-mobile{display:flex;flex-direction:column;min-height:100vh}
+.sidebar{background:var(--white);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto}
+.main{overflow-y:auto;min-height:100vh;background:var(--bg)}
+.mob-header{background:var(--white);border-bottom:1px solid var(--border);padding:10px 16px;position:sticky;top:0;z-index:50}
+.mob-nav{background:var(--white);border-top:1px solid var(--border);display:flex;position:sticky;bottom:0;z-index:50}
+.mob-nav-btn{flex:1;padding:10px 4px 12px;background:none;color:var(--t2);font-size:10px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;font-family:var(--fh);transition:color .15s}
+.mob-nav-btn.on{color:var(--peri)}.mob-nav-btn .ni{font-size:22px;line-height:1}
+.container{max-width:800px;margin:0 auto;padding:24px 20px}
+/* Sidebar */
+.sb-logo{padding:20px 22px 14px;border-bottom:1px solid var(--border)}
+.logo-txt{font-family:var(--fh);font-size:19px;font-weight:900}.logo-txt span{color:var(--peri)}
+.sb-prof{padding:14px 22px;border-bottom:1px solid var(--border)}
+.lvl-ring{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--peri),var(--mocha));display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:18px;font-weight:900;color:#fff;flex-shrink:0;box-shadow:var(--shadow)}
+.xp-bar{height:7px;background:var(--border);border-radius:var(--rf);overflow:hidden;margin:6px 0}
+.xp-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--peach));border-radius:var(--rf);transition:width .6s ease}
+.sb-nav{padding:10px 8px;flex:1;overflow-y:auto}
+.nav-btn{display:flex;align-items:center;gap:9px;padding:9px 14px;border-radius:var(--rs);width:100%;background:none;color:var(--t2);font-size:13px;font-weight:700;font-family:var(--fh);text-align:left;margin-bottom:1px}
+.nav-btn:hover{background:var(--bg);color:var(--t1)}.nav-btn.on{background:var(--peri-l);color:var(--peri)}.nav-btn .ni2{font-size:16px;width:22px;text-align:center}
+.sb-foot{padding:14px 22px;border-top:1px solid var(--border);margin-top:auto}
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 20px;border-radius:var(--rs);font-size:13px;font-weight:700;font-family:var(--fh);cursor:pointer;border:none;transition:all .18s}
+.btn-p{background:var(--peri);color:#fff}.btn-p:hover{background:var(--peri-d);transform:translateY(-1px);box-shadow:var(--shadow)}
+.btn-g{background:var(--white);color:var(--t1);border:1.5px solid var(--border)}.btn-g:hover{border-color:var(--mocha);color:var(--mocha)}
+.btn-ok{background:var(--green);color:#fff}.btn-ok:hover{filter:brightness(1.08)}
+.btn-sm{padding:6px 14px;font-size:12px;border-radius:8px}
+.btn-full{width:100%;padding:13px;font-size:15px}
+.btn:disabled{opacity:.4;cursor:not-allowed;pointer-events:none}
+.btn-copy{background:var(--peri-l);color:var(--peri);border:none;padding:6px 13px;border-radius:7px;font-size:11px;font-weight:700;font-family:var(--fh);cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all .15s}
+.btn-copy:hover{background:var(--peri);color:#fff}
+.btn-open{background:var(--mocha-l);color:var(--mocha-d);border:none;padding:6px 13px;border-radius:7px;font-size:11px;font-weight:700;font-family:var(--fh);cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:all .15s}
+.btn-open:hover{background:var(--mocha);color:#fff}
+/* Cards */
+.card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+/* Badges */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--rf);font-size:11px;font-weight:700;font-family:var(--fh)}
+.b-xp{background:var(--gold-l);color:var(--gold)}.b-ok{background:var(--green-l);color:var(--green)}
+.b-easy{background:#EBF8F3;color:#3DA876}.b-med{background:#FEF5D9;color:#C8960C}
+.b-hard{background:#FFF0EB;color:#E05A2B}.b-exp{background:var(--magenta-l);color:var(--magenta)}
+/* Chapter path */
+.chapter{margin-bottom:28px}
+.ch-hdr{display:flex;align-items:center;gap:12px;padding:14px 18px;border-radius:var(--r);margin-bottom:14px}
+.ch-num{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-weight:900;font-size:15px;color:#fff;flex-shrink:0}
+.track-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:11px}
+.track-node{background:var(--white);border:2px solid var(--border);border-radius:var(--r);padding:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden}
+.track-node:hover:not(.locked){transform:translateY(-3px);box-shadow:var(--shadow-lg)}.track-node.locked{opacity:.45;cursor:not-allowed}
+.track-node.done{border-color:var(--green)}
+.tn-icon{font-size:32px;margin-bottom:8px;display:block}.tn-prog{height:4px;background:var(--border);border-radius:var(--rf);overflow:hidden;margin-top:10px}.tn-fill{height:100%;border-radius:var(--rf)}
+/* Mission path */
+.mission-path{position:relative;padding-left:44px}
+.mission-path::before{content:'';position:absolute;left:20px;top:0;bottom:0;width:2px;background:var(--border);border-radius:2px}
+.mp-item{position:relative;margin-bottom:10px;cursor:pointer}
+.mp-dot{position:absolute;left:-32px;width:24px;height:24px;border-radius:50%;border:2px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;font-family:var(--fh);top:10px;z-index:1;transition:all .2s}
+.mp-dot.done{background:var(--green);border-color:var(--green);color:#fff}
+.mp-dot.active{background:var(--peri);border-color:var(--peri);color:#fff;box-shadow:0 0 0 4px var(--peri-l)}
+.mp-dot.locked{background:var(--border);color:var(--t3)}
+.mp-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--rs);padding:13px 15px;transition:all .15s}
+.mp-card:hover:not(.m-locked){border-color:var(--peri);background:var(--peri-l)}
+.mp-card.m-active{border-color:var(--peri);background:var(--peri-l)}.mp-card.m-locked{opacity:.5;cursor:not-allowed}
+/* Mission tabs */
+.m-tabs{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.m-tab{padding:8px 16px;border-radius:var(--rf);background:var(--white);border:1.5px solid var(--border);font-size:13px;font-weight:700;font-family:var(--fh);color:var(--t2);cursor:pointer;transition:all .15s}
+.m-tab.on{background:var(--peri);border-color:var(--peri);color:#fff}
+/* Theory */
+.theory h3{font-family:var(--fh);font-size:15px;font-weight:800;color:var(--t1);margin:16px 0 7px}
+.theory h3:first-child{margin-top:0}
+.theory p{color:var(--t2);margin-bottom:10px;line-height:1.85}
+.theory strong{color:var(--t1)}.theory ul,.theory ol{padding-left:20px;color:var(--t2);margin-bottom:10px}
+.theory li{margin-bottom:5px;line-height:1.75}
+.theory code{background:var(--bg);border:1px solid var(--border);padding:2px 7px;border-radius:5px;font-family:var(--fm);font-size:11px;color:var(--mocha)}
+.theory .info-box{background:var(--blue-l);border-left:3px solid var(--blue);padding:12px 14px;border-radius:0 var(--rs) var(--rs) 0;margin:12px 0}
+.theory .tip-box{background:var(--green-l);border-left:3px solid var(--green);padding:12px 14px;border-radius:0 var(--rs) var(--rs) 0;margin:12px 0}
+.theory .warn-box{background:var(--gold-l);border-left:3px solid var(--gold);padding:12px 14px;border-radius:0 var(--rs) var(--rs) 0;margin:12px 0}
+.theory table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+.theory th{background:var(--bg);padding:8px 12px;text-align:left;font-family:var(--fh);font-weight:700;border-bottom:2px solid var(--border)}
+.theory td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--t2)}
+/* Prompts */
+.prompt-box{background:var(--bg);border:1.5px solid var(--border);border-radius:var(--rs);overflow:hidden;margin:10px 0}
+.pb-hdr{display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:var(--white);border-bottom:1px solid var(--border)}
+.pb-label{font-family:var(--fh);font-size:10px;font-weight:800;color:var(--t2);text-transform:uppercase;letter-spacing:.06em}
+.pb-actions{display:flex;gap:6px;align-items:center}
+.pb-text{padding:13px;font-family:var(--fm);font-size:12px;color:var(--t1);white-space:pre-wrap;word-break:break-word;line-height:1.7;max-height:280px;overflow-y:auto}
+.pb-text::-webkit-scrollbar{width:4px}.pb-text::-webkit-scrollbar-thumb{background:var(--border)}
+.prompt-tabs{display:flex;gap:4px;margin-bottom:8px}
+.p-tab{padding:5px 12px;border-radius:var(--rf);background:var(--border);font-size:11px;font-weight:700;font-family:var(--fh);color:var(--t2);cursor:pointer;border:none;transition:all .15s}
+.p-tab.on{background:var(--peri);color:#fff}
+/* Practice */
+.practice-steps{display:flex;flex-direction:column;gap:9px}
+.ps-item{display:flex;align-items:flex-start;gap:13px;padding:13px;background:var(--white);border:1px solid var(--border);border-radius:var(--rs)}
+.ps-num{width:26px;height:26px;border-radius:50%;background:var(--peri-l);color:var(--peri);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-weight:800;font-size:12px;flex-shrink:0}
+.ps-title{font-weight:600;font-size:13px;color:var(--t1);margin-bottom:4px}
+.ps-desc{font-size:12px;color:var(--t2)}
+/* Quick prompts */
+.qp-section{background:linear-gradient(135deg,var(--peri-l),var(--mocha-l));border:1.5px solid var(--peri);border-radius:var(--r);padding:16px;margin-bottom:16px}
+.qp-title{font-family:var(--fh);font-weight:800;font-size:14px;color:var(--peri-d);margin-bottom:12px}
+.qp-item{background:var(--white);border-radius:var(--rs);padding:10px 12px;margin-bottom:8px;border:1px solid var(--border)}
+.qp-name{font-family:var(--fh);font-weight:700;font-size:12px;color:var(--t1);margin-bottom:4px}
+.qp-prompt{font-family:var(--fm);font-size:11px;color:var(--t2);margin-bottom:8px;white-space:pre-wrap;max-height:120px;overflow:auto}
+/* Stats */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.stat{background:var(--white);border:1px solid var(--border);border-radius:var(--rs);padding:14px;text-align:center;box-shadow:var(--shadow)}
+.sv{font-family:var(--fh);font-size:24px;font-weight:900;line-height:1}.sl{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+/* Skills/Plugins */
+.lib-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px}
+.lib-tab{padding:8px 16px;border-radius:var(--rf);background:var(--white);border:1.5px solid var(--border);font-size:13px;font-weight:700;font-family:var(--fh);color:var(--t2);cursor:pointer;transition:all .15s}
+.lib-tab.on{background:var(--peri);border-color:var(--peri);color:#fff}
+.skill-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:11px}
+.skill-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:15px;transition:all .18s;display:flex;flex-direction:column;gap:9px}
+.skill-card:hover{border-color:var(--peri);box-shadow:var(--shadow)}
+.sc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.sc-name{font-family:var(--fh);font-weight:800;font-size:14px;color:var(--t1)}
+.sc-desc{font-size:12px;color:var(--t2);line-height:1.5}
+.sc-cmd{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:7px 10px;font-family:var(--fm);font-size:10px;color:var(--mocha);word-break:break-all;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s}
+.sc-cmd:hover{background:var(--mocha-l);border-color:var(--mocha)}
+/* Deploy guide */
+.deploy-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:20px;margin-bottom:14px}
+.deploy-step{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--border)}
+.deploy-step:last-child{border-bottom:none}
+.deploy-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-weight:900;font-size:14px;flex-shrink:0;color:#fff}
+/* Share & Profile */
+.achievements-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:9px}
+.ach-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--rs);padding:13px;text-align:center}
+.ach-card.earned{border-color:var(--gold);background:var(--gold-l)}
+.ach-icon{font-size:28px;margin-bottom:5px}.ach-name{font-family:var(--fh);font-weight:700;font-size:11px}.ach-desc{font-size:10px;color:var(--t2);margin-top:2px}
+/* Toast & XP */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--t1);color:#fff;padding:10px 20px;border-radius:var(--rf);font-family:var(--fh);font-weight:700;font-size:13px;z-index:9999;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg);animation:tin .3s ease,tout .3s 2.4s ease forwards;white-space:nowrap;max-width:90vw}
+@keyframes tin{from{opacity:0;transform:translateX(-50%) translateY(20px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+@keyframes tout{to{opacity:0;transform:translateX(-50%) translateY(20px)}}
+.xpf{position:fixed;top:45%;left:50%;transform:translate(-50%,-50%);font-family:var(--fh);font-size:30px;font-weight:900;color:var(--gold);pointer-events:none;animation:xup 1.4s ease forwards;z-index:9999;text-shadow:0 2px 10px rgba(0,0,0,.15)}
+@keyframes xup{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}60%{transform:translate(-50%,-90%) scale(1.4)}100%{opacity:0;transform:translate(-50%,-130%) scale(1.1)}}
+/* Input */
+input[type=text]{padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rs);font-family:var(--fh);font-size:14px;font-weight:600;outline:none;background:var(--bg);color:var(--t1);transition:border-color .15s;width:100%}
+input[type=text]:focus{border-color:var(--peri)}
+/* Shared profile page */
+.shared-wrap{min-height:100vh;background:linear-gradient(135deg,var(--peri-l) 0%,var(--bg) 50%,var(--peach-l) 100%);display:flex;align-items:center;justify-content:center;padding:20px}
+.sec-title{font-family:var(--fh);font-size:20px;font-weight:900;margin-bottom:4px}
+.sec-sub{color:var(--t2);font-size:13px;margin-bottom:18px}
+/* Responsive */
+@media(max-width:640px){.track-grid{grid-template-columns:1fr 1fr}.skill-grid{grid-template-columns:1fr}.container{padding:16px 14px}.stats-row{gap:7px}.achievements-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:380px){.track-grid{grid-template-columns:1fr}.stats-row{grid-template-columns:repeat(3,1fr)}}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ===== LEVELS & BADGES ===== */
+const LVL=[{n:'Новичок 🌱',min:0},{n:'Ученик 📖',min:300},{n:'Практик ⚡',min:750},{n:'Промпт-мастер 🎯',min:1400},{n:'Стратег 🧭',min:2200},{n:'Архитектор 🏛',min:3200},{n:'AI-инженер 🤖',min:4500},{n:'Claude Expert 👑',min:6500}];
+const BADGES=[
+  {id:'f1',i:'🚀',n:'Первый шаг',d:'Выполни первую миссию'},
+  {id:'setup',i:'🛠',n:'Системщик',d:'Завершить Установку'},
+  {id:'start',i:'🌱',n:'Стартовал',d:'Завершить Старт'},
+  {id:'prompts',i:'🧠',n:'Промпт-мастер',d:'Завершить Промптинг'},
+  {id:'marketing',i:'📣',n:'Маркетолог',d:'Завершить Маркетинг'},
+  {id:'brain',i:'🗂',n:'Архивист',d:'Завершить Second Brain'},
+  {id:'social',i:'📱',n:'SMM-мастер',d:'Завершить Соцсети'},
+  {id:'content',i:'🌐',n:'Вебмастер',d:'Завершить Контент'},
+  {id:'research',i:'🔬',n:'Аналитик',d:'Завершить Ресёрч'},
+  {id:'memory',i:'🧩',n:'Мнемоник',d:'Завершить Память'},
+  {id:'ops',i:'⚙️',n:'Операционист',d:'Завершить Операции'},
+  {id:'trading',i:'📊',n:'Трейдер-аналитик',d:'Завершить Аналитику'},
+  {id:'code',i:'💻',n:'Claude Coder',d:'Завершить Claude Code'},
+  {id:'ai',i:'🤖',n:'AI-архитектор',d:'Завершить AI Stack'},
+  {id:'tradingbot',i:'📈',n:'Quant-разработчик',d:'Завершить AI Trading Bot'},
+  {id:'boss',i:'👑',n:'Claude Expert',d:'Все треки завершены!'}
+];
+/* ===== CHAPTERS ===== */
+const CHAPTERS=[
+  {n:'Глава 1: Начало',col:'#3DA876',diff:'easy',dl:'🟢 Легко',tracks:['setup','start']},
+  {n:'Глава 2: Основы',col:'#3B82C4',diff:'easy',dl:'🟢 Легко',tracks:['prompts','marketing']},
+  {n:'Глава 3: Практика',col:'#F59E0B',diff:'med',dl:'🟡 Средне',tracks:['brain','social','content']},
+  {n:'Глава 4: Продвинутый',col:'#E05A2B',diff:'hard',dl:'🔴 Сложно',tracks:['research','memory','ops']},
+  {n:'Глава 5: Эксперт',col:'#BB2649',diff:'exp',dl:'⚫ Эксперт',tracks:['trading','code','ai']},
+  {n:'Глава 6: AI Trading Bot',col:'#7C3AED',diff:'exp',dl:'🟣 Мастер',tracks:['tradingbot']}
+];
+/* ===== TRACKS ===== */
+const TRACKS={
+setup:{id:'setup',title:'Установка',icon:'🛠',color:'#64748B',desc:'Настройка Claude-экосистемы',diff:'easy',
+  setupPrompts:[
+    {name:'🤖 CLAUDE.md',prompt:`Создай CLAUDE.md.\n\nПроект: [название]\nЧто делает: [описание]\nСтек: [технологии]\nРоль: [роль]\n\nРазделы:\n1. Контекст\n2. Стек\n3. Стандарты\n4. Команды\n5. Правила`},
+    {name:'🔌 MCP серверы',prompt:`Подбери MCP серверы.\n\nЗадачи: [опиши]\nОС: [Mac/Win/Linux]\nУровень: [новичок/продвинутый]\n\nПредложи:\n1. Топ-5 MCP\n2. Готовый config.json\n3. Инструкцию установки`},
+    {name:'📋 Project Instructions',prompt:`Системный промпт для Project.\n\nБизнес: [опиши]\nАудитория: [ЦА]\nТон: [стиль]\n\nСоздай:\n- Контекст бизнеса\n- Роль Claude\n- Стиль ответов\n- Формат по умолчанию`}
+  ],
+  missions:[
+  {t:'Экосистема Claude май 2026',xp:100,
+   theory:`<h3>Актуальные модели (май 2026)</h3>
+<table><tr><th>Модель</th><th>Применение</th><th>Контекст</th></tr>
+<tr><td><strong>Claude Opus 4.7</strong></td><td>Сложный анализ, агентные задачи. $5/$25 MTok</td><td>1M токенов</td></tr>
+<tr><td><strong>Claude Sonnet 4.6</strong></td><td>Оптимум. #1 на Finance Agent (63.3%)</td><td>1M токенов</td></tr>
+<tr><td><strong>Claude Haiku 4.5</strong></td><td>Быстрые простые задачи</td><td>200K токенов</td></tr></table>
+<div class="warn-box">⚠️ <strong>Депрекация:</strong> Sonnet 4 и Opus 4 выводятся 15 июня 2026. Мигрируй на 4.6/4.7.</div>
+<h3>Планы (май 2026)</h3>
+<ul><li><strong>Free</strong> — Memory для всех! Connectors на всех планах</li><li><strong>Pro — $20/мес</strong> ($17 годовая) — Cowork, Claude Code</li><li><strong>Max 5x — $100/мес</strong> — 5x лимиты, Dispatch</li><li><strong>Max 20x — $200/мес</strong> — интенсивное использование</li><li><strong>Team</strong> — Claude Code в каждом месте, Cowork</li><li><strong>Enterprise</strong> — self-serve, SSO, SCIM, HIPAA</li></ul>
+<h3>Главные новинки 2026</h3>
+<ul><li><strong>Memory для всех</strong> включая Free</li><li><strong>Cowork + Dispatch</strong> — автономная работа, управление со смартфона</li><li><strong>Managed Agents (бета)</strong> — мультиагентная оркестрация, Outcomes, Dreaming</li><li><strong>Advisor Tool (бета)</strong> — Opus как советник для Sonnet (beta: advisor-tool-2026-03-01)</li><li><strong>1M контекст GA</strong> для Sonnet 4.6+ и Opus 4.7+</li><li><strong>Claude Code Routines</strong> — агенты по расписанию</li></ul>`,
+   prompts:[{l:'Старт',p:`Я изучаю Claude в мае 2026.\n\nОбъясни:\n1. Чем Opus 4.7, Sonnet 4.6 и Haiku 4.5 отличаются — когда использовать?\n2. Что такое Cowork и Dispatch?\n3. Как Memory работает на Free плане?\n4. Что такое Managed Agents и Advisor Tool?\n\nДай практичный ответ.`},{l:'Для бизнеса',p:`Я [опиши себя и бизнес].\n\nПомоги выбрать экосистему Claude:\n1. Какой план?\n2. Какие продукты (Chat/Code/Cowork/API)?\n3. Топ-5 use cases для моего бизнеса\n4. Первые 3 конкретных шага\n\nБудь честен про стоимость.`}],
+   steps:[{s:'Зайди на claude.ai — изучи планы'},{s:'Скопируй промпт "Для бизнеса"',copy:true},{s:'Memory бесплатная: Settings → Memory → включить'},{s:'Если Pro+: найди Cowork в Desktop App'}],
+   tips:['Sonnet 4.6 закрывает 90% задач','Memory бесплатная — сразу настрой','Connectors (Google Drive, Gmail) доступны на всех планах']},
+  {t:'Claude Desktop + MCP 2026',xp:150,
+   theory:`<h3>MCP — 500+ серверов в 2026</h3>
+<p>Desktop Extensions (.mcpb) — установка в 1 клик. Settings → Customize объединяет Skills, Plugins и Connectors.</p>
+<h3>Конфиг файл</h3>
+<ul><li><strong>Mac:</strong> <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li><li><strong>Windows:</strong> <code>%APPDATA%\\Claude\\claude_desktop_config.json</code></li></ul>
+<h3>Топ MCP серверов</h3>
+<table><tr><th>Сервер</th><th>Что даёт</th></tr>
+<tr><td>filesystem</td><td>Доступ к файлам</td></tr>
+<tr><td>memory</td><td>Knowledge Graph</td></tr>
+<tr><td>github</td><td>Репозитории, PR</td></tr>
+<tr><td>brave-search</td><td>Веб-поиск</td></tr>
+<tr><td>playwright</td><td>Браузер</td></tr></table>`,
+   prompts:[{l:'Конфиг',p:`// claude_desktop_config.json\n{\n  "mcpServers": {\n    "filesystem": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/Users/ИМЯ/Projects"]\n    },\n    "memory": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-memory", "--memory-path", "/Users/ИМЯ/.claude-memory"]\n    },\n    "github": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-github"],\n      "env": {"GITHUB_PERSONAL_ACCESS_TOKEN": "ghp_ТОКЕН"}\n    }\n  }\n}`},{l:'Подбор MCP',p:`Подбери MCP для Claude Desktop.\n\nЗадачи: [опиши]\nОС: [Mac/Win/Linux]\n\n1. Топ-5 MCP для задач\n2. Готовый config.json\n3. Команды установки\n4. Как проверить работу`}],
+   steps:[{s:'Скачай Claude Desktop: claude.com/download'},{s:'Скопируй конфиг',copy:true},{s:'Вставь в config файл → перезапусти Desktop'},{s:'Settings → Customize — маркетплейс плагинов'}],
+   tips:['filesystem + memory = минимальный рабочий набор','Перезапуск Desktop после каждого изменения конфига','Desktop Extensions (.mcpb) — двойной клик, npm не нужен']},
+  {t:'Projects и Memory',xp:120,
+   theory:`<h3>Projects — изолированные рабочие пространства</h3>
+<p>Своя история, файлы, системный промпт. Создай для: Маркетинг, Разработка, Клиенты, Личное.</p>
+<h3>Memory (май 2026 — для всех!)</h3>
+<ul><li>Settings → Memory → включить</li><li>Claude запоминает факты автоматически</li><li>Видишь и редактируешь воспоминания</li></ul>
+<div class="tip-box"><strong>💡 Стратегия:</strong> Projects = структура. Memory = долгосрочный контекст. Используй оба.</div>`,
+   prompts:[{l:'Project Instructions',p:`Ты — AI-ассистент для [бизнес].\n\nКОНТЕКСТ: [описание]\nРОЛЬ: [кто я]\n\nСТИЛЬ:\n- Тон: [экспертный/дружеский]\n- Язык: русский\n- Формат: структурированно\n\nВАЖНО:\n- [факт 1]\n- [факт 2]`},{l:'Настройка Memory',p:`Запомни контекст работы:\n\nИМЯ: [имя]\nБИЗНЕС: [описание]\nАУДИТОРИЯ: [ЦА]\nЦЕЛИ: [на год]\nСТИЛЬ: [как работать]\n\nЧТО ПОМНИТЬ:\n- [факт 1]\n- [факт 2]`}],
+   steps:[{s:'Создай Project: Claude.ai → New Project'},{s:'Скопируй Project Instructions',copy:true},{s:'Настрой Memory — скопируй "Настройка Memory"'},{s:'Создай 3 Projects: Маркетинг / Разработка / Личное'}],
+   tips:['Projects хранят до 200K токенов — загружай документы','Memory бесплатная с 2026 — сразу расскажи о бизнесе','Один раз настроил — экономишь 10-15 мин на каждой сессии']},
+  {t:'Cowork, Dispatch и автономная работа',xp:180,
+   theory:`<h3>Cowork (Pro+) — Claude работает за тебя</h3>
+<p>Агентный режим для нетехнических задач: организует файлы, пишет отчёты, обрабатывает email.</p>
+<h3>Dispatch (март 2026)</h3>
+<p>Управляй со смартфона: отправь задачу → Claude выполняет на десктопе → результат готов. Настройка 60 секунд.</p>
+<h3>Scheduled Tasks (апрель 2026)</h3>
+<p>Повторяющиеся задачи по расписанию: ежедневный брифинг, еженедельный отчёт.</p>
+<h3>Доступность</h3>
+<ul><li>Pro ($20/мес) — Cowork + Dispatch</li><li>Max 5x ($100/мес) — 5x лимиты</li><li>Max 20x ($200/мес) — интенсивное</li></ul>`,
+   prompts:[{l:'Первая задача',p:`Задача для Cowork:\n\nОрганизуй папку Downloads.\n\n1. Просканируй содержимое\n2. Предложи категории\n3. Покажи план\n4. ЖДИ подтверждения\n\nНачни с анализа — не выполняй до "ОК".`},{l:'Ежедневный брифинг',p:`Ежедневный брифинг (каждый день 9:00):\n\n1. Google Calendar — события сегодня\n2. Gmail — важные непрочитанные\n3. Slack — важные упоминания\n4. Саммари: что важно + фокус дня\n\nКраткий структурированный отчёт.`}],
+   steps:[{s:'Открой Claude Desktop → Cowork'},{s:'Скопируй "Первая задача"',copy:true},{s:'Посмотри как Claude планирует выполнение'},{s:'Если Pro+: Settings → Dispatch → сканируй QR'}],
+   tips:['Cowork потребляет больше токенов — планируй заранее','Одобряй план перед необратимыми действиями','Dispatch: "собери данные пока на встрече"']}
+]},
+start:{id:'start',title:'Первые шаги',icon:'🌱',color:'#3DA876',desc:'Основы работы с Claude',diff:'easy',missions:[
+  {t:'Принципы эффективного общения',xp:80,
+   theory:`<h3>Качество вопроса = качество ответа</h3>
+<table><tr><th>Уровень</th><th>Пример</th><th>Качество</th></tr>
+<tr><td>Слабый</td><td>"Напиши текст"</td><td>⭐ Общий</td></tr>
+<tr><td>Средний</td><td>"Напиши пост о кофе"</td><td>⭐⭐⭐</td></tr>
+<tr><td>Сильный</td><td>"Пост для кофейни в Москве, 25-40 лет, цель 14-17ч, хук+ценность+CTA, 150 слов"</td><td>⭐⭐⭐⭐⭐</td></tr></table>
+<h3>Итеративный подход</h3>
+<p>Первый ответ — черновик. Уточняй каждый раз — каждое уточнение улучшает результат.</p>`,
+   prompts:[{l:'Итерация',p:`Шаг 1: "Помоги написать [задача]"\nШаг 2: "Сделай профессиональнее, добавь цифры"\nШаг 3: "Укороти до 3 предложений, добавь CTA"\nШаг 4: "Дай 3 варианта: экспертный / дружеский / срочный"`},{l:'Уточнения',p:`Прежде чем отвечать — задай 3-5 уточняющих вопроса для точного ответа.\n\nПосле ответов — выполни задачу.\n\nЗадача: [опиши]`}],
+   steps:[{s:'Скопируй промпт с уточнениями',copy:true},{s:'Попробуй задачу в 3-4 итерации'},{s:'Сравни первый и финальный результат'},{s:'Запомни: каждое уточнение = лучше'}],
+   tips:['Shift+Enter = новая строка без отправки','Длинный контекст помогает — давай детали','Claude — собеседник, не поисковик']},
+  {t:'Форматы ответов и JSON',xp:80,
+   theory:`<h3>Claude точно следует инструкциям формата</h3>
+<p>Укажи формат — получишь именно его. Критично для автоматизации.</p>
+<ul><li><strong>JSON</strong> — для интеграций и Make/n8n</li><li><strong>Markdown</strong> — для Obsidian</li><li><strong>Таблица</strong> — для сравнений</li></ul>`,
+   prompts:[{l:'JSON анализ',p:`Верни ТОЛЬКО JSON:\n{\n  "product_name": "string",\n  "value_props": ["string"],\n  "weaknesses": ["string"],\n  "score": 1-10,\n  "recommendation": "string"\n}\nПродукт: [опиши]`},{l:'Структурированный',p:`Проанализируй [тему]:\n## Ключевые выводы\n[3-5 пунктов]\n## Возможности\n[таблица]\n## Риски\n[список]\n## Следующий шаг\n[1 действие]`}],
+   steps:[{s:'Скопируй JSON-промпт',copy:true},{s:'Опиши продукт — получи анализ'},{s:'Попробуй таблицу и prose форматы'},{s:'Сохрани лучший формат'}],
+   tips:['"ТОЛЬКО JSON без лишнего текста" — добавляй всегда','Markdown напрямую в Obsidian','Структурированный формат = основа автоматизации']},
+  {t:'Роли и Chain-of-Thought',xp:120,
+   theory:`<h3>Роль активирует экспертизу</h3>
+<ul><li><strong>Базовый:</strong> "Ты — маркетолог"</li><li><strong>Средний:</strong> "Ты — CMO B2B SaaS 10 лет"</li><li><strong>Экспертный:</strong> "Ты — скептичный инвестор с 200+ питчами"</li></ul>
+<h3>Chain-of-Thought</h3>
+<p>"Думай шаг за шагом" — повышает точность на 30-50% для сложных задач.</p>`,
+   prompts:[{l:'Роль + CoT',p:`Ты — [роль] с [опыт] в [специализация].\nСтиль: [прямой/детальный].\n\nДумай шаг за шагом:\n1. Анализируй ситуацию\n2. Рассмотри варианты\n3. Оцени риски\n4. Дай рекомендацию\n\nЗадача: [опиши]`},{l:'Два эксперта',p:`Оцени идею с двух перспектив:\n\nОПТИМИСТ (венчурный инвестор):\n- Возможности и почему сработает\n\nСКЕПТИК (предприниматель с провалами):\n- Главные риски\n- Что упускаю\n\nИдея: [опиши]`}],
+   steps:[{s:'Скопируй "Роль + CoT"',copy:true},{s:'Придумай роль для задачи'},{s:'После ответа: "Теперь опровергни вывод"'},{s:'Сравни с обычным промптом'}],
+   tips:['Конкретнее роль — точнее ответ','CoT обязателен для необратимых решений','Два эксперта — лучший инструмент для решений']},
+  {t:'Библиотека промптов и метапромптинг',xp:120,
+   theory:`<h3>Промпты как бизнес-актив</h3>
+<p>20-50 проверенных шаблонов с переменными {{переменная}}. Хранить: Project Instructions, Obsidian, Notion.</p>
+<h3>Метапромптинг</h3>
+<p>Попроси Claude написать промпт: "Напиши оптимальный промпт для задачи X." Результат часто лучше написанного вручную.</p>`,
+   prompts:[{l:'Шаблон',p:`Ты — контент-стратег {{БРЕНД}}.\nАудитория: {{АУДИТОРИЯ}}.\n\nСоздай пост для {{ПЛАТФОРМА}} на тему "{{ТЕМА}}"\nТон: {{ТОН}}\nДлина: до {{ДЛИНА}} слов`},{l:'Метапромпт',p:`Напиши оптимальный промпт для:\n\nЗАДАЧА: [опиши]\nАУДИТОРИЯ: [кто читает результат]\nЦЕЛЬ: [желаемый результат]\nОГРАНИЧЕНИЯ: [что исключить]`}],
+   steps:[{s:'Создай 5 шаблонов с {{переменными}}'},{s:'Скопируй метапромпт',copy:true},{s:'Попроси Claude написать промпт для задачи'},{s:'Загрузи лучшие в Project Instructions'}],
+   tips:['Тестируй промпт 3-5 раз перед добавлением','Метапромпт часто лучше написанного вручную','Few-shot: дай 2-3 примера формата']}
+]},
+prompts:{id:'prompts',title:'Промпт-инжиниринг',icon:'🧠',color:'#6667AB',desc:'Мастерство запросов',diff:'easy',missions:[
+  {t:'TCFR: профессиональная структура',xp:120,
+   theory:`<h3>Фреймворк TCFR (Task-Context-Format-Rules)</h3>
+<table><tr><th>Блок</th><th>Что писать</th></tr>
+<tr><td><strong>Task</strong></td><td>Чёткая задача</td></tr>
+<tr><td><strong>Context</strong></td><td>Кто ты, для кого, зачем</td></tr>
+<tr><td><strong>Format</strong></td><td>Длина, структура, стиль</td></tr>
+<tr><td><strong>Rules</strong></td><td>Ограничения</td></tr></table>`,
+   prompts:[{l:'Полный TCFR',p:`ЗАДАЧА: Напиши реактивационный email.\n\nКОНТЕКСТ:\n- SaaS для управления проектами\n- Клиент не активен 90+ дней\n- Ценность: 3+ ч/неделю, чек 5000₽/мес\n\nФОРМАТ:\n- Subject (55 символов)\n- Preview text (40 символов)\n- Тело: 130-150 слов от CEO\n\nПРАВИЛА:\n- Без скидок\n- 1 CTA максимум`},{l:'Шаблон',p:`T: [задача]\nC: [контекст]\nF: [формат]\nR: [ограничения]`}],
+   steps:[{s:'Скопируй полный TCFR',copy:true},{s:'Адаптируй — заполни 4 блока'},{s:'Сравни с результатом без структуры'},{s:'Создай 3 TCFR шаблона'}],
+   tips:['Context — самый важный блок','Rules убирают нежелательное','Сохраняй рабочие шаблоны']},
+  {t:'1M токенов и управление контекстом',xp:120,
+   theory:`<h3>1M токенов GA (март 2026)</h3>
+<p>Sonnet 4.6 и Opus 4.7 — 1M токенов (~750K слов). Весь монорепозиторий в одном запросе.</p>
+<h3>Техники управления контекстом</h3>
+<ul><li><strong>XML-теги:</strong> &lt;context&gt;, &lt;task&gt;, &lt;output&gt;</li><li><strong>Суммаризация:</strong> "Резюмируй что обсудили"</li><li><strong>Якоря:</strong> повторяй ключевые факты</li></ul>`,
+   prompts:[{l:'XML структура',p:`<context>\nЯ [кто]. Работаю над [проект]. ЦА: [аудитория].\nКонтекст: [факты]\n</context>\n\n<task>\n[Задача]\n</task>\n\n<format>\n[Формат ответа]\n</format>\n\n<rules>\n- [правило 1]\n</rules>`},{l:'Суммаризация',p:`Суммаризируй что обсудили:\n1. Ключевые решения\n2. Открытые вопросы\n3. Подтверди факт: [ключевой факт]\n\nПотом продолжим.`}],
+   steps:[{s:'Скопируй XML-структуру',copy:true},{s:'Адаптируй под свой контекст'},{s:'Используй суммаризацию каждые ~50 сообщений'},{s:'Загрузи весь репозиторий как контекст'}],
+   tips:['1M контекст: весь репозиторий в одном запросе!','XML-теги = разделители для Claude','Явно напоминай ключевые факты']},
+  {t:'Few-shot и Extended Thinking',xp:150,
+   theory:`<h3>Few-shot: учи на примерах</h3>
+<p>2-3 примера желаемого формата — Claude точно повторит паттерн.</p>
+<h3>Extended Thinking (Opus 4.7)</h3>
+<p>Активируется автоматически для сложных задач. Повышает точность. Виден как свёрнутый блок рассуждений.</p>`,
+   prompts:[{l:'Few-shot',p:`Создай [тип] по шаблону:\n\nПРИМЕР 1:\nВход: [пример]\nВыход: [пример]\n\nПРИМЕР 2:\nВход: [пример]\nВыход: [пример]\n\n---\nМои данные:\nВход: [данные]`},{l:'Tree-of-Thought',p:`Реши задачу методом Tree-of-Thought:\n\nЗАДАЧА: [опиши]\n\n1. Предложи 3 принципиально разных подхода\n2. Для каждого — 2-3 шага реализации\n3. Оцени лучший путь\n4. Детально разработай победивший`}],
+   steps:[{s:'Скопируй Few-shot шаблон',copy:true},{s:'Добавь 2-3 примера своего формата'},{s:'Попробуй Tree-of-Thought для сложной задачи'},{s:'Сравни с обычным промптом'}],
+   tips:['3 примера достаточно для большинства','Для Opus 4.7 — Extended Thinking включается автоматически','ToT особенно хорош для архитектурных решений']},
+  {t:'Системные промпты и Advisor Tool',xp:120,
+   theory:`<h3>Системный промпт = постоянный контекст</h3>
+<p>В Projects Instructions — на каждый чат. В API — поле system. Один раз написал — не объясняешь каждый раз.</p>
+<h3>Advisor Tool (бета, март 2026)</h3>
+<p>Opus 4.7 как "советник" для Sonnet 4.6. Качество близкое к Opus при стоимости Sonnet (~5x дешевле). Beta header: <code>anthropic-beta: advisor-tool-2026-03-01</code></p>`,
+   prompts:[{l:'Системный промпт',p:`Ты — AI-ассистент для [проект].\n\nКОНТЕКСТ: [описание]\nРОЛЬ: [кто я]\n\nСТИЛЬ:\n- Тон: экспертный, без снобизма\n- Язык: русский\n- Структурированно\n\nВСЕГДА:\n- [правило 1]\n- [правило 2]`},{l:'Персонализация',p:`Оцени системный промпт:\n\n[вставь промпт]\n\n1. Что работает хорошо?\n2. Чего не хватает?\n3. Противоречия?\n4. Предложи улучшение`}],
+   steps:[{s:'Скопируй шаблон системного промпта',copy:true},{s:'Создай Project → вставь'},{s:'Протестируй 10 разных запросов'},{s:'Используй "Персонализацию" для улучшения'}],
+   tips:['Обновляй раз в квартал','Advisor Tool Beta: Opus стратегически направляет Sonnet','Project Instructions = системный промпт без повторений']}
+]},
+marketing:{id:'marketing',title:'Маркетинг',icon:'📣',color:'#E05A2B',desc:'Digital marketing с Claude',diff:'easy',missions:[
+  {t:'Brand Voice и системный промпт',xp:150,
+   theory:`<h3>Brand Voice = ДНК каждого текста</h3>
+<p>Документ в начале маркетинговых запросов. Лучшее место: Project Instructions.</p>
+<ul><li>Суть бренда (2-3 предложения)</li><li>Personality traits (3-5)</li><li>Tone of Voice</li><li>Целевая аудитория</li><li>Taboo</li></ul>`,
+   prompts:[{l:'Brand Voice',p:`=== BRAND VOICE: [Название] ===\n\nСУТЬ: Мы — [описание]. Помогаем [аудитория] достичь [результат].\n\nПЕРСОНАЛЬНОСТЬ:\n- [черта 1]\n- [черта 2]\n\nТОН: [стиль]\nАУДИТОРИЯ: [портрет]\n\nMESSEGES:\n1. [ценность]\n\nTABOO:\n- [запрет 1]`},{l:'Тест',p:`Напиши пост ДВАЖДЫ:\n1. БЕЗ Brand Voice\n2. С Brand Voice: [вставь]\nОцени разницу.`}],
+   steps:[{s:'Скопируй шаблон Brand Voice',copy:true},{s:'Заполни под бренд'},{s:'Тест: пост без/с промптом'},{s:'Сохрани в Project Instructions'}],
+   tips:['Обновляй раз в квартал','Сохрани в Project Instructions — автоматический Brand Voice','Тест: знакомый должен узнать стиль']},
+  {t:'Контент-машина: 1 тезис → 7 форматов',xp:180,
+   theory:`<h3>Content Repurposing</h3>
+<p>Один тезис → контент для всех каналов за один запрос.</p>
+<h3>Где брать тезисы</h3>
+<ul><li>Вопросы клиентов</li><li>Собственные ошибки</li><li>Успешные кейсы</li><li>Спорные мнения в нише</li></ul>`,
+   prompts:[{l:'7 форматов',p:`[Brand Voice]\n\nТЕЗИС: "[инсайт]"\n\n1. INSTAGRAM: хук + раскрытие + CTA (150 слов)\n2. LINKEDIN: заголовок + лид + 3 раздела (400 слов)\n3. TELEGRAM: разговорный (100 слов)\n4. REELS: хук 3с + 27с + CTA\n5. EMAIL ТЕМЫ: 5 вариантов A/B\n6. КАРУСЕЛЬ: заголовок + 6 слайдов\n7. THREAD: 5-7 постов`},{l:'Контент-план',p:`[Brand Voice]\nКонтент-план 30 дней для [платформа].\n\nНИША: [ниша]\nЦЕЛЬ: [цель]\nЧАСТОТА: [X/неделю]\n\nДля каждой недели: фокус + 3 поста + тип каждого`}],
+   steps:[{s:'Придумай 1 конкретный инсайт'},{s:'Скопируй "7 форматов"',copy:true},{s:'Запусти с Brand Voice'},{s:'Запланируй в Buffer'}],
+   tips:['1 сильный тезис > 10 слабых','Добавляй реальные цифры из опыта','Планируй месяц вперёд — 3-4 часа/неделю']},
+  {t:'A/B тестирование текстов',xp:200,
+   theory:`<h3>Системный A/B с Claude</h3>
+<p>Генерация → гипотеза → тест → итерация.</p>
+<h3>Приоритет тестирования</h3>
+<ol><li>Subject line (open rate)</li><li>Хук поста (охват)</li><li>CTA кнопка (конверсия)</li><li>Заголовок лендинга</li></ol>`,
+   prompts:[{l:'A/B система',p:`5 вариантов subject line.\n\nКОНТЕКСТ: [описание]\n\nДля каждого:\n1. Subject (55 символов)\n2. Preview text (40 символов)\n3. Психологический триггер\n4. Прогноз OR\n5. Для какого сегмента\n\nКакие 2 тестировать первыми?`},{l:'Анализ текущего',p:`Проанализируй текст.\n\nТЕКСТ: [вставь]\nМЕТРИКИ: [OR%, CTR%]\nАУДИТОРИЯ: [описание]\n\n1. Главные проблемы\n2. Что работает\n3. 3 варианта улучшения`}],
+   steps:[{s:'Скопируй "A/B система"',copy:true},{s:'Примени к актуальному элементу'},{s:'Запусти тест с реальной аудиторией'},{s:'Через 2 недели: анализ результатов'}],
+   tips:['Тестируй 1 элемент за раз','Только с данными A/B осмысленно','Claude генерирует — ты оцениваешь аудиторию']},
+  {t:'Email-маркетинг система',xp:180,
+   theory:`<h3>Email ROI: $42 на $1 (2026)</h3>
+<h3>Welcome-серия</h3>
+<ul><li>День 0: приветствие + обещание</li><li>День 1: ценность без продаж</li><li>День 3: история/кейс</li><li>День 5: снятие возражения</li><li>День 7: оффер с дедлайном</li></ul>`,
+   prompts:[{l:'Welcome-серия',p:`5 писем Welcome-серии.\n\nПРОДУКТ: [описание]\nАУДИТОРИЯ: [кто]\nЦЕЛЬ: конверсия в [действие] за 7 дней\nОФФЕР: [день 7]\n\nДля каждого: ДЕНЬ + ТЕМА (2 A/B) + PREVIEW + ТЕЛО + CTA`},{l:'Реактивация',p:`3 письма реактивации (90+ дней).\n\nПРОДУКТ: [описание]\n\n1. "Мы скучали"\n2. Ценный контент без продажи\n3. Финальный оффер или отписка`}],
+   steps:[{s:'Скопируй Welcome-серию',copy:true},{s:'Заполни продукт и оффер'},{s:'Настрой в Unisender/Mailchimp'},{s:'Тест на 10% перед полным запуском'}],
+   tips:['7 из 10 email-покупок в первые 7 дней','Персонализация имени +20-30% OR','Разные серии для разных источников']}
+]},
+brain:{id:'brain',title:'Second Brain',icon:'🗂',color:'#0EA884',desc:'Obsidian + Claude = база знаний',diff:'med',missions:[
+  {t:'Архитектура PARA + Zettelkasten',xp:150,
+   theory:`<h3>PARA — простейшая рабочая система</h3>
+<ul><li><strong>Projects</strong> — активные с дедлайном</li><li><strong>Areas</strong> — сферы без дедлайна</li><li><strong>Resources</strong> — темы и референсы</li><li><strong>Archive</strong> — завершённое</li></ul>
+<h3>Zettelkasten</h3>
+<p>Атомарные заметки + [[wikilinks]]. Одна идея = одна заметка.</p>`,
+   prompts:[{l:'Проектирование',p:`Спроектируй Obsidian vault.\n\nДЕЯТЕЛЬНОСТЬ: [опиши]\nТИПЫ: [встречи/проекты/идеи]\nБОЛЬ: [что теряется]\n\n1. Структура папок PARA\n2. Система тегов (20-25)\n3. Шаблоны 4 типов заметок\n4. Naming convention\n5. Daily ritual (5 мин)\n6. Weekly ritual (30 мин)`},{l:'Шаблон проекта',p:`---\ntags: [projects, {{domain}}]\nstatus: active\ndeadline: {{дата}}\n---\n\n# {{Название}}\n## Цель\n## Решения\n## Следующие шаги\n- [ ] ...\n## Журнал`}],
+   steps:[{s:'Скопируй промпт проектирования',copy:true},{s:'Создай структуру в Obsidian'},{s:'Создай шаблоны для 4 типов'},{s:'Создай первые 5 заметок'}],
+   tips:['Daily Notes + PARA = достаточно для 80%','Начни с "достаточной" структуры, не идеальной','Obsidian Git + iCloud = синхронизация бесплатно']},
+  {t:'Claude → Obsidian Markdown',xp:150,
+   theory:`<h3>Ответы Claude напрямую в Obsidian</h3>
+<p>С правильным промптом — копируй без редактирования.</p>
+<h3>Синтаксис</h3>
+<ul><li><code>[[Название]]</code> — внутренняя ссылка</li><li><code>#тег</code> — тег</li><li>YAML frontmatter — метаданные</li></ul>`,
+   prompts:[{l:'Обработка материала',p:`Обработай → заметки Obsidian.\n\nМАТЕРИАЛ: [вставь]\n\n1. ГЛАВНАЯ:\n---\ndate: {{ДАТА}}\ntags: [{{тег}}]\nrelated: [[{{тема}}]]\n---\n## Суть\n## Инсайты\n## Применение\n## Вопросы\n\n2. АТОМАРНЫЕ ЗАМЕТКИ (3-5)\n3. ACTION ITEMS`},{l:'Синтез',p:`3 заметки из разных областей:\n\nЗАМЕТКА 1: [вставь]\nЗАМЕТКА 2: [вставь]\nЗАМЕТКА 3: [вставь]\n\n1. Неочевидные связи\n2. 2-3 инсайта из пересечений\n3. Заметка-синтез в Obsidian`}],
+   steps:[{s:'Скопируй обработку материала',copy:true},{s:'Вставь реальный материал'},{s:'Скопируй в .md файл напрямую'},{s:'Проверь wikilinks'}],
+   tips:['Синтез = emergent knowledge — инсайты которых нет в исходниках','Daily Notes + обработка = рабочая система','Плагин Obsidian Git = автосинхронизация']},
+  {t:'Claude Projects как база знаний',xp:150,
+   theory:`<h3>Projects = встроенный RAG без кода</h3>
+<p>Загрузи документы (до 200K токенов) — Claude отвечает на их основе.</p>
+<h3>Что загружать</h3>
+<ul><li>Брифы и гайдлайны</li><li>FAQ команды</li><li>Продуктовая документация</li><li>Архив решений</li></ul>`,
+   prompts:[{l:'Настройка Project',p:`Помоги настроить Project для [направление].\n\nЗАДАЧИ: [опиши]\nДОКУМЕНТЫ: [список]\nТИПОВЫЕ ВОПРОСЫ: [примеры]\n\nСоздай:\n1. Project Instructions\n2. Список документов\n3. Шаблон запросов`},{l:'Корп база знаний',p:`Создай базу знаний команды в Projects.\n\nКОМПАНИЯ: [описание]\nПРОЦЕССЫ: [список]\nВОПРОСЫ: [частые]\n\n1. Project Instructions\n2. Шаблон FAQ\n3. Структура документов\n4. Как обновлять`}],
+   steps:[{s:'Скопируй настройку Project',copy:true},{s:'Создай новый Project'},{s:'Загрузи 3-5 документов'},{s:'Тест: вопросы на которые база должна знать ответ'}],
+   tips:['Projects = корпоративный RAG без разработки','Обновляй документы раз в месяц','Для команды: Projects с общими гайдлайнами']},
+  {t:'Система регулярных обзоров',xp:150,
+   theory:`<h3>Обзоры = живая система</h3>
+<ul><li><strong>Daily (5 мин):</strong> что сделал, что узнал, следующий шаг</li><li><strong>Weekly (30 мин):</strong> прогресс, инсайты → Obsidian, что устарело</li><li><strong>Monthly (2 часа):</strong> OKR, синтез паттернов</li></ul>`,
+   prompts:[{l:'Weekly Review',p:`WEEKLY REVIEW — {{ДАТА}}\n\nСобытия недели: [всё что было]\n\n1. ИТОГИ (топ-5)\n2. ИНСАЙТЫ\n3. ПАТТЕРНЫ\n4. НЕЗАКРЫТЫЕ ПЕТЛИ\n5. ФОКУС следующей недели\n6. В OBSIDIAN (что создать)\n\nФормат: Obsidian Markdown.`},{l:'Monthly',p:`MONTHLY — {{МЕСЯЦ}}\n\nOKR: [вставь]\nПрогресс: [что произошло]\n\n1. % по каждому KR\n2. Что мешало\n3. Корректировки\n4. Топ-инсайт → Obsidian`}],
+   steps:[{s:'Скопируй Weekly Review',copy:true},{s:'Проведи обзор за 7 дней'},{s:'Напоминание: пятница 17:00'},{s:'Сохрани в /Reviews/2026'}],
+   tips:['Без поиска паттернов = просто список','Cowork (Pro+) автоматически готовит материал','Лучший момент: вечер пятницы']}
+]},
+social:{id:'social',title:'Соцсети',icon:'📱',color:'#0088CC',desc:'Telegram-боты и Instagram',diff:'med',missions:[
+  {t:'Telegram-бот: от идеи до деплоя',xp:220,
+   theory:`<h3>Telegram API + Claude Sonnet 4.6 = умный бот</h3>
+<h3>Стек 2026</h3>
+<ul><li>aiogram 3 + anthropic SDK</li><li>Модель: claude-sonnet-4-6-20250514</li><li>Хостинг: Railway $5/мес</li><li>FAQ-бот (100 диалогов/день): ~$5-15/мес</li></ul>`,
+   prompts:[{l:'Проектирование',p:`Telegram-бот на Claude.\n\nЦЕЛЬ: [что делает]\nАУДИТОРИЯ: [кто]\nПЛАТФОРМА: [Python/Make/n8n]\n\n1. Системный промпт (роль, ограничения)\n2. Команды: /start, /help\n3. 5 диалогов\n4. Обработка вне темы\n5. Структура файлов`},{l:'Python код',p:`Telegram-бот с Claude API.\n\nСТЕК: aiogram 3 + anthropic\nМОДЕЛЬ: claude-sonnet-4-6-20250514\n\nФУНКЦИОНАЛ:\n- /start, /help\n- Сообщение → Claude\n- История 10 сообщений\n- Rate limit: 1/2с\n\nСИСТЕМНЫЙ ПРОМПТ: [опиши]\n\nСоздай: main.py, claude_client.py, .env.example, requirements.txt, README`}],
+   steps:[{s:'Напиши системный промпт'},{s:'Скопируй проектирование',copy:true},{s:'@BotFather → токен'},{s:'Деплой на Railway'}],
+   tips:['Начни с FAQ-бота','Webhook быстрее polling','Логируй все диалоги с первого дня']},
+  {t:'Instagram контент-система 2026',xp:200,
+   theory:`<h3>Reels алгоритм 2026</h3>
+<ul><li><strong>Хук 0-3с:</strong> останови скролл</li><li><strong>Контент 3-27с:</strong> ценность</li><li><strong>CTA 27-30с:</strong> сохранение/комментарий</li></ul>
+<p>Первые 60 минут решают. Сохранения > репосты > комментарии > лайки.</p>`,
+   prompts:[{l:'Контент-пакет',p:`[Brand Voice]\n\nКонтент-пакет на неделю.\n\nНИША: [ниша]\nАУДИТОРИЯ: [описание]\n\n1. REELS СКРИПТ: хук 3с + 27с + CTA\n2. КАРУСЕЛЬ: заголовок + 7 слайдов + CTA\n3. STORIES: 5 с вовлечением\n4. ПОДПИСИ: 3 варианта\n5. BIO: 150 символов`},{l:'Анализ конкурента',p:`Анализ Instagram аккаунта.\n\nАКАУНТ: [ник]\nДАННЫЕ: [топ-посты, форматы]\n\n1. Что работает\n2. Жалобы в комментариях\n3. Незанятые темы\n4. Как выделиться`}],
+   steps:[{s:'Скопируй контент-пакет',copy:true},{s:'Добавь реальные детали из опыта'},{s:'Запланируй в Later'},{s:'3-5 Reels/неделю = органический охват'}],
+   tips:['Сохранения — главная метрика 2026','Reels с хуком-вопросом = 2-3x просмотров','Публикуй 9-11 и 18-20 часов']},
+  {t:'Telegram-воронка и монетизация',xp:220,
+   theory:`<h3>Воронка: подписчик → клиент</h3>
+<p>5 сообщений → 3-5x конверсия vs одного оффера.</p>
+<h3>Инструменты 2026</h3>
+<ul><li>SendPulse — визуальный конструктор</li><li>BotFather + Python — полный контроль</li><li>Make — no-code</li></ul>`,
+   prompts:[{l:'Воронка 5 писем',p:`Telegram-воронка для [продукт].\n\nЦЕЛЬ: [конверсия]\nАУДИТОРИЯ: [описание]\nОФФЕР: [что и почём]\n[Brand Voice]\n\nПисьмо 1 (сразу): приветствие\nПисьмо 2 (24ч): ценность\nПисьмо 3 (3 дня): история\nПисьмо 4 (5 дней): квалификация\nПисьмо 5 (7 дней): оффер`},{l:'Возражения',p:`Ответы на возражения [продукт]:\n\n1. "Дорого"\n2. "Подумаю"\n3. "Уже пробовал"\n4. "Нет времени"\n5. "Не уверен"\n\nДля каждого: эмпатия → переосмысление → доказательство → CTA`}],
+   steps:[{s:'Скопируй воронку',copy:true},{s:'Заполни продукт и оффер'},{s:'SendPulse — бесплатно до 500 подписчиков'},{s:'Тест на 10 людях'}],
+   tips:['Персонализация в 4-м письме = лучший результат','Тестируй 50 слов vs 150 слов','Воронка 5 касаний > одного оффера в 3-5x']},
+  {t:'SMM-автоматизация с Make + Claude',xp:200,
+   theory:`<h3>Полностью автоматический SMM</h3>
+<p>Make/n8n + Claude API + Telegram/Instagram = контент без участия.</p>
+<h3>Архитектура</h3>
+<ol><li>Schedule trigger (пн 9:00)</li><li>HTTP → Claude API (тема + Brand Voice)</li><li>Telegram/Instagram API</li><li>Google Sheets лог</li></ol>`,
+   prompts:[{l:'Make сценарий',p:`Спроектируй Make-сценарий автопостинга.\n\nПЛАТФОРМА: [Telegram/Instagram]\nЧАСТОТА: [X/неделю]\nТИП: [советы/кейсы]\n[Brand Voice]\n\nАрхитектура:\n1. Schedule module\n2. HTTP Request → Claude API (напиши промпт)\n3. Публикация module\n4. Sheets лог\n5. Error handling`},{l:'Промпт для генерации',p:`Создай промпт для автогенерации постов.\n\nКАНАЛ: [тема]\nАУДИТОРИЯ: [описание]\n[Brand Voice]\n\nПромпт должен генерировать [тип], включать [элементы], длина [X слов].`}],
+   steps:[{s:'Скопируй архитектуру Make',copy:true},{s:'Создай аккаунт make.com'},{s:'5 тестов вручную → потом расписание'},{s:'Human-in-loop для важного контента'}],
+   tips:['5-10 тестов вручную перед автоматизацией','Храни все посты в Sheets — аналитика','Human-in-loop обязателен']}
+]},
+content:{id:'content',title:'Контент & Сайты',icon:'🌐',color:'#10B981',desc:'Сайты, SEO, email, презентации',diff:'med',missions:[
+  {t:'Landing Page за один промпт',xp:200,
+   theory:`<h3>Claude создаёт рабочий лендинг</h3>
+<p>Полный HTML/CSS/JS за один запрос. Netlify Drop = деплой 30 секунд без аккаунта.</p>
+<h3>Структура</h3>
+<ul><li>Hero + CTA</li><li>Боль → решение</li><li>"Как работает" (3 шага)</li><li>Social proof</li><li>FAQ (5 вопросов)</li><li>Финальный CTA</li></ul>`,
+   prompts:[{l:'Полный лендинг',p:`HTML-лендинг (один файл, Google Fonts).\n\nПРОДУКТ: [описание]\nАУДИТОРИЯ: [кто]\nРЕЗУЛЬТАТ: [что получает]\nCTA: [действие]\n\nСТРУКТУРА:\n1. Hero + CTA\n2. Боль → решение\n3. Как работает (3 шага)\n4. Цифры\n5. FAQ (5)\n6. Финальный CTA\n\nДИЗАЙН: минималистичный, mobile-first CSS`},{l:'CRO',p:`Улучши лендинг.\n\nТЕКУЩАЯ СТРУКТУРА: [опиши]\nМЕТРИКИ: CR [X]%\nАУДИТОРИЯ: [описание]\n\n1. Главные проблемы\n2. Новый hero\n3. 3 варианта CTA\n4. FAQ для возражений`}],
+   steps:[{s:'Скопируй промпт лендинга',copy:true},{s:'Заполни параметры'},{s:'Скопируй HTML → index.html'},{s:'netlify.com/drop → перетащи → ссылка'}],
+   tips:['Netlify Drop = 30 секунд без аккаунта','Попроси CSS-анимации при скролле','Свой домен: Netlify Free + reg.ru']},
+  {t:'SEO-контент: E-E-A-T 2026',xp:180,
+   theory:`<h3>Google E-E-A-T в 2026</h3>
+<p>Experience, Expertise, Authoritativeness, Trustworthiness. Без личного опыта — штраф.</p>
+<h3>Workflow</h3>
+<ol><li>Ключевое слово → структура</li><li>Claude пишет каркас</li><li>ТЫ добавляешь опыт и цифры</li><li>Мета-теги + Schema markup</li></ol>`,
+   prompts:[{l:'SEO статья',p:`Статья под "[ключевое слово]".\n\nАУДИТОРИЯ: [кто читает]\nДЛИНА: 1800-2200 слов\n\nСтруктура:\n1. H1 с ключевым словом\n2. Введение 120 слов\n3. 5-6 H2 разделов\n4. FAQ 5 вопросов (PAA)\n5. Заключение + CTA\n6. Meta title (60 символов)\n7. Meta description (155)`},{l:'Контент-кластер',p:`Кластер для "[тема]".\n\n1. PILLAR PAGE: тема + ключевое слово\n2. CLUSTER (8-10): тема, слово, интент\n3. Internal linking\n4. Порядок публикации`}],
+   steps:[{s:'Скопируй промпт статьи',copy:true},{s:'ОБЯЗАТЕЛЬНО: добавь 3-5 реальных примеров'},{s:'Опубликуй + Search Console'},{s:'Обновляй через 6 месяцев'}],
+   tips:['AI без опыта = штраф Google 2026','1800-2200 слов оптимум','Schema markup FAQ/How-to — попроси Claude добавить']},
+  {t:'Презентации и видео-скрипты',xp:180,
+   theory:`<h3>Claude = структура + тексты</h3>
+<p>Полная структура за один запрос. С pptx Skill — напрямую в PowerPoint.</p>
+<h3>Для видео</h3>
+<ul><li>Скрипт с хуком и переходами</li><li>Timestamps для описания</li><li>Shorts/Reels из длинного</li></ul>`,
+   prompts:[{l:'Презентация',p:`Презентация для [цель].\n\nТЕМА: [тема]\nАУДИТОРИЯ: [кому]\nДЛИТЕЛЬНОСТЬ: [X мин] → [X слайдов]\n\nДля каждого слайда:\n1. Тип (Title/Content/Visual)\n2. Заголовок\n3. Тезисы (3-4)\n4. Рекомендация визуала\n5. Скрипт спикера`},{l:'YouTube скрипт',p:`YouTube скрипт.\n\nТЕМА: [тема]\nДЛИТЕЛЬНОСТЬ: [X мин]\nТОН: [стиль]\n\n- ХУК (0-30с)\n- ОБЕЩАНИЕ (30-60с)\n- КОНТЕНТ: [X разделов]\n- CTA\n\nДобавь timestamps.`}],
+   steps:[{s:'Скопируй презентацию',copy:true},{s:'Перенеси в Canva или Pitch'},{s:'Для PowerPoint: используй pptx Skill'},{s:'Хук видео = 70% успеха — инвестируй'}],
+   tips:['10-12 слайдов для питча (правило Kawasaki)','Shorts отдельно из основного','Хук важнее всего контента']},
+  {t:'Копирайтинг: PAS, AIDA, 4U',xp:180,
+   theory:`<h3>Фреймворки копирайтинга</h3>
+<ul><li><strong>PAS</strong> — Problem → Agitation → Solution</li><li><strong>AIDA</strong> — Attention → Interest → Desire → Action</li><li><strong>BAB</strong> — Before → After → Bridge</li><li><strong>4U</strong> — Useful, Urgent, Unique, Ultra-specific</li></ul>`,
+   prompts:[{l:'PAS email',p:`Email по PAS.\n\nПРОДУКТ: [описание]\nКЛИЕНТ: [описание]\n\nP: [боль конкретно]\nA: [как влияет]\nS: [как решает]\n\nSubject (2 A/B) + тело 150 слов + CTA`},{l:'4U заголовки',p:`10 заголовков по 4U.\n\nПРОДУКТ: [описание]\nАУДИТОРИЯ: [описание]\n\nДля каждого:\n1. Заголовок\n2. Оценка 4U\n3. Для какого канала`}],
+   steps:[{s:'Скопируй PAS email',copy:true},{s:'Добавь реальную цифру или историю'},{s:'Тест через A/B с AIDA-версией'},{s:'"Какой триггер слабее?" → улучши'}],
+   tips:['PAS лучше для email, AIDA для лендингов','Структура от Claude + детали от тебя','После написания: проси улучшить слабое место']}
+]},
+research:{id:'research',title:'Бизнес-ресёрч',icon:'🔬',color:'#7C3AED',desc:'JTBD, конкуренты, рынок',diff:'hard',missions:[
+  {t:'JTBD: что покупает клиент',xp:200,
+   theory:`<h3>Jobs-to-be-Done</h3>
+<p>Клиент не покупает дрель — покупает дырку. Три уровня: Functional, Emotional, Social.</p>
+<h3>Конкуренты JTBD</h3>
+<p>Любой способ выполнить ту же работу: Excel, WhatsApp, нанять, ничего не делать.</p>`,
+   prompts:[{l:'JTBD анализ',p:`JTBD-анализ.\n\nПРОДУКТ: [описание]\nСЕГМЕНТ: [кто]\n\n1. FUNCTIONAL JOBS (7-10)\n2. EMOTIONAL JOBS\n3. SOCIAL JOBS\n4. ВСЕ АЛЬТЕРНАТИВЫ\n5. НЕЗАКРЫТЫЕ JOBS\n6. ИНСАЙТ ПОЗИЦИОНИРОВАНИЯ`},{l:'JTBD интервью',p:`Скрипт JTBD интервью.\n\nПРОДУКТ: [описание]\nКЛИЕНТ: [кто]\n\n1. Screener (3 вопроса)\n2. 10 вопросов хронологически\n3. Вопросы для F/E/S Jobs\n4. Красные флаги\n5. Зелёные флаги PMF`}],
+   steps:[{s:'Скопируй JTBD анализ',copy:true},{s:'Опиши конкретно'},{s:'Изучи "ВСЕ АЛЬТЕРНАТИВЫ" — главные инсайты'},{s:'5-7 реальных интервью'}],
+   tips:['Интервью важнее AI-анализа','Что делали ДО твоего продукта — ключевой вопрос','Повторяй раз в 6 месяцев']},
+  {t:'Competitive Intelligence',xp:220,
+   theory:`<h3>Анализ конкурентов = стратегический актив</h3>
+<p>Цель: найти незанятую нишу, понять где выигрываешь.</p>
+<h3>Источники</h3>
+<ul><li>Сайт + цены</li><li>G2, Trustpilot, App Store</li><li>Вакансии — приоритеты компании</li><li>LinkedIn — рост команды</li></ul>`,
+   prompts:[{l:'Профиль конкурента',p:`Профиль конкурента.\n\nКОНКУРЕНТ: [название]\nДАННЫЕ: [сайт + отзывы + цены]\n\n1. ПОЗИЦИОНИРОВАНИЕ\n2. ИДЕАЛЬНЫЙ КЛИЕНТ\n3. СИЛЬНЫЕ СТОРОНЫ\n4. СЛАБЫЕ (отзывы)\n5. СТРАТЕГИЯ РОСТА\n6. КОГДА МЫ ВЫИГРЫВАЕМ`},{l:'War Room',p:`War Room анализ.\n\nМОЙ ПРОДУКТ: [описание]\nКОНКУРЕНТЫ: [3-5]\n\n1. Карта позиционирования\n2. Незанятые ниши\n3. Моё уникальное место\n4. Угрозы`}],
+   steps:[{s:'Собери: сайт + 10 отзывов + цены'},{s:'Скопируй профиль конкурента',copy:true},{s:'Анализ с максимумом деталей'},{s:'В Obsidian — обновляй раз в квартал'}],
+   tips:['Вакансии = приоритеты компании','Где жалуются клиенты = твоя возможность','War Room раз в квартал']},
+  {t:'Customer Development',xp:200,
+   theory:`<h3>Custdev: валидация до разработки</h3>
+<p>Этапы: Problem Discovery → Solution Validation → PMF → Scale</p>
+<h3>Закон Момента</h3>
+<p>Спрашивай о прошлом: не "купили бы?" а "покупали ли раньше?"</p>`,
+   prompts:[{l:'Скрипт интервью',p:`Custdev скрипт.\n\nЭТАП: [Problem/Solution]\nГИПОТЕЗА: [что создаём]\nКЛИЕНТ: [описание]\n\n1. Скрипт 15-20 вопросов\n2. Запрещённые вопросы (bias)\n3. Шаблон заметок\n4. Красные флаги\n5. PMF сигналы`},{l:'Анализ',p:`Анализ custdev.\n\nПРОВЕДЕНО: [N]\nОТВЕТЫ: [цитаты]\n\n1. БОЛИ: топ-3 с частотой\n2. ТЕКУЩИЕ РЕШЕНИЯ\n3. ГОТОВНОСТЬ ПЛАТИТЬ\n4. PMF СИГНАЛЫ\n5. ПИВОТ ГИПОТЕЗЫ`}],
+   steps:[{s:'Скопируй скрипт интервью',copy:true},{s:'Проведи 5 интервью'},{s:'Анализ паттернов'},{s:'Скорректируй гипотезу → повтори'}],
+   tips:['5-7 интервью = первые выводы','Запись с согласия → Claude транскрибирует','Прошлое поведение > будущие намерения']},
+  {t:'Research Digest и мониторинг рынка',xp:200,
+   theory:`<h3>Система мониторинга</h3>
+<p>Google Alerts + LinkedIn эксперты + Telegram каналы + Reddit.</p>
+<h3>Автоматизация с Cowork (Pro+)</h3>
+<p>Scheduled Task: каждый понедельник → дайджест → саммари.</p>`,
+   prompts:[{l:'Weekly Digest',p:`RESEARCH DIGEST — {{ДАТА}}\n\nМатериалы: [статьи, посты, новости]\n\n1. 🔥 ГЛАВНОЕ\n2. 📈 ТРЕНДЫ\n3. ⚠️ УГРОЗЫ\n4. 💡 ИНСАЙТ\n5. ✅ ДЕЙСТВИЯ\n6. 📌 В OBSIDIAN`},{l:'Market Brief',p:`Market Brief [ниша].\n\n1. МАКРО-ТРЕНДЫ (5)\n2. ПОТРЕБИТЕЛЬСКОЕ ПОВЕДЕНИЕ\n3. ТЕХНОЛОГИИ\n4. ВОЗМОЖНОСТИ\n5. УГРОЗЫ\n6. СЛАБЫЕ СИГНАЛЫ\n7. РЕКОМЕНДАЦИИ`}],
+   steps:[{s:'Скопируй Weekly Digest',copy:true},{s:'Настрой Google Alerts'},{s:'Первый дайджест прямо сейчас'},{s:'Если Pro+: Cowork Scheduled Task понедельник'}],
+   tips:['5-10 источников > 50','Reddit и HN первыми сигнализируют','Cowork автоматизирует сборку — 2-3ч/неделю']}
+]},
+memory:{id:'memory',title:'Система памяти',icon:'🧩',color:'#8B5CF6',desc:'Постоянная память Claude',diff:'hard',
+  setupPrompts:[
+    {name:'🧠 Инициализация Memory Graph',prompt:`Настрой Memory Graph.\n\n1. Entity: Business-[Название]\n   Type: organization\n   Observations: [что делаем, ЦА, ценность]\n\n2. Entity: Strategy-Q[X]-2026\n   Type: strategy\n   Observations: [OKR, приоритеты]\n\n3. Топ-3 клиента:\n   Type: client\n   Observations: [компания, контакт, статус]\n\nПокажи граф после создания.`},
+    {name:'📅 Еженедельное обновление',prompt:`Обнови Memory Graph.\n\nЭТА НЕДЕЛЯ:\n[встречи, решения, контакты]\n\n1. Создай/обнови entities\n2. Добавь observations\n3. Создай relations\n4. Decision-[тема]-[дата] для решений\n\nСводка после обновления.`},
+    {name:'🔍 Поиск в памяти',prompt:`Найди в Memory Graph:\n\n[Запрос: "активные проекты" / "история клиента X"]\n\n1. Найденные entities\n2. Связанные entities\n3. Что устарело`}
+  ],
+  missions:[
+  {t:'Три уровня памяти (май 2026)',xp:150,
+   theory:`<h3>Memory для ВСЕХ с 2026</h3>
+<table><tr><th>Тип</th><th>Где</th><th>Когда</th></tr>
+<tr><td><strong>Chat History Memory</strong></td><td>Claude.ai (все планы)</td><td>Предпочтения, стиль</td></tr>
+<tr><td><strong>MCP Knowledge Graph</strong></td><td>Desktop/Code</td><td>Корпоративные знания</td></tr>
+<tr><td><strong>Agent Memory</strong></td><td>Managed Agents (бета)</td><td>Многоагентные системы</td></tr>
+<tr><td><strong>Claude Projects</strong></td><td>Claude.ai (все)</td><td>Документы 200K токенов</td></tr></table>
+<h3>Chat History Memory (для всех!)</h3>
+<p>Settings → Memory → включить. Видишь и редактируешь воспоминания.</p>`,
+   prompts:[{l:'Настройка',p:`Запомни контекст:\n\nИМЯ: [имя]\nБИЗНЕС: [описание]\nАУДИТОРИЯ: [ЦА]\nЦЕЛИ: [на год]\nСТИЛЬ РАБОТЫ: [как работать]\n\nЧТО ПОМНИТЬ:\n- [факт 1]\n- [факт 2]`},{l:'Проверка',p:`Что ты знаешь обо мне?\n\n1. Факты\n2. Контекст работы\n3. Предпочтения\n\nЧто обновить?`}],
+   steps:[{s:'Settings → Memory → включить (все планы)'},{s:'Скопируй "Настройка"',copy:true},{s:'Расскажи о бизнесе'},{s:'Новый чат → "Что ты знаешь обо мне?"'}],
+   tips:['Memory бесплатная — сразу настрой','Редактируй в Settings — убирай неверное','Отдельный Project = изолированный контекст']},
+  {t:'MCP Memory: Knowledge Graph',xp:250,
+   theory:`<h3>Knowledge Graph на SQLite</h3>
+<p>Официальный MCP Memory Server. Entities + Relations + Observations. Данные локально = приватность.</p>
+<h3>Naming convention</h3>
+<ul><li>Business-MoyBiznes</li><li>Client-IvanIvanov-Alpha</li><li>Project-Launch-Q2-2026</li><li>Decision-Pricing-2026-05</li></ul>`,
+   prompts:[{l:'Конфиг',p:`// claude_desktop_config.json\n{\n  "mcpServers": {\n    "memory": {\n      "command": "npx",\n      "args": ["-y", "@modelcontextprotocol/server-memory", "--memory-path", "/Users/ИМЯ/.claude-memory"]\n    }\n  }\n}\n// Windows: "C:\\\\Users\\\\ИМЯ\\\\.claude-memory"`}],
+   steps:[{s:'Скопируй конфиг Memory MCP',copy:true},{s:'Добавь в claude_desktop_config.json'},{s:'Перезапусти Claude Desktop'},{s:'Запусти "Инициализация Memory Graph" из Quick Prompts'}],
+   tips:['Backup ~/.claude-memory регулярно','Один сервер для Desktop и Code','Еженедельное обновление: 5 мин = 5 ч сэкономлено']},
+  {t:'Agent Memory в Managed Agents (бета)',xp:250,
+   theory:`<h3>Agent Memory (апрель 2026)</h3>
+<p>Нативная память для агентов. Beta header: managed-agents-2026-04-01</p>
+<h3>Advisor Tool (март 2026)</h3>
+<p>Opus 4.7 как советник + Sonnet 4.6 как исполнитель = ~5x дешевле чистого Opus.</p>`,
+   prompts:[{l:'Agent с Memory',p:`Managed Agent с памятью.\n\nЦЕЛЬ: [описание]\nЧТО ПОМНИТЬ:\n- [тип 1]\n- [тип 2]\n\nBETA: managed-agents-2026-04-01\n\nСоздай:\n1. Системный промпт\n2. Структуру entities\n3. Python код запуска\n4. Парсинг SSE stream`}],
+   steps:[{s:'Изучи docs: platform.claude.com/docs/en/release-notes'},{s:'Скопируй промпт Agent с Memory',copy:true},{s:'Тест с beta-заголовком'},{s:'MCP Memory vs Agent Memory — для каких задач что'}],
+   tips:['Agent Memory только через API','MCP Memory для личного, Agent Memory для продуктов','Beta меняется — проверяй доки']},
+  {t:'Chroma RAG: векторная память',xp:300,
+   theory:`<h3>RAG: для 100+ документов</h3>
+<table><tr><th>Projects</th><th>RAG (Chroma)</th></tr>
+<tr><td>&lt;150 страниц, без кода</td><td>Неограниченно, разработка</td></tr>
+<tr><td>Команда</td><td>Продукт/API</td></tr></table>
+<h3>Стек 2026</h3>
+<p>LlamaIndex + ChromaDB + Claude Sonnet 4.6</p>`,
+   prompts:[{l:'RAG система',p:`RAG-система.\n\nДОКУМЕНТЫ: [PDF/MD/TXT]\nМОДЕЛЬ: claude-sonnet-4-6-20250514\nСТЕК: LlamaIndex + ChromaDB\n\n1. ingest.py — загрузка, индексация\n2. query.py — поиск + ответ с источником\n3. app.py — Streamlit UI\n4. requirements.txt\n\nПерсистентность, error handling.`}],
+   steps:[{s:'Сначала попробуй Claude Projects'},{s:'Скопируй RAG промпт',copy:true},{s:'Подготовь 5-10 документов'},{s:'Деплой на Streamlit Cloud'}],
+   tips:['Claude Projects = RAG без кода для большинства','Chunk 500-1500 токенов — экспериментируй','Production: Pinecone вместо Chroma']}
+]},
+ops:{id:'ops',title:'Операции',icon:'⚙️',color:'#D97706',desc:'SOP, OKR, Cowork автоматизация',diff:'hard',missions:[
+  {t:'Карта процессов и оптимизация',xp:200,
+   theory:`<h3>Систематизировать → оптимизировать → автоматизировать</h3>
+<p>Три вопроса для каждого шага: убрать? автоматизировать? обязательно человек?</p>
+<h3>Типы потерь</h3>
+<ul><li>Ожидание, Движение, Переделки, Избыточная обработка</li></ul>`,
+   prompts:[{l:'Анализ процесса',p:`Оптимизируй процесс.\n\nПРОЦЕСС: [название]\nЧАСТОТА: [как часто]\nВРЕМЯ: [мин]\n\nШАГИ: [перечисли]\nПРОБЛЕМЫ: [что не работает]\n\n1. Узкие места\n2. Что убрать\n3. Что автоматизировать (Claude/Make/Cowork)\n4. Что у человека`},{l:'ROI',p:`ROI автоматизации.\n\nПРОЦЕСС: [описание]\nЧАСТОТА: [X/неделю]\nВРЕМЯ: [X мин]\nСТОИМОСТЬ ЧАСА: [₽]\n\nАВТОМАТИЗАЦИЯ: разработка [₽] + поддержка [₽/мес]\n\nСрок окупаемости, годовой ROI`}],
+   steps:[{s:'Выбери самый частый процесс'},{s:'Скопируй анализ',copy:true},{s:'Начни с одной простой автоматизации'},{s:'ROI перед разработкой'}],
+   tips:['80/20: 20% процессов = 80% потерь','Документируй ДО автоматизации','Cowork (Pro+) закрывает многие задачи']},
+  {t:'SOP: документация за минуты',xp:200,
+   theory:`<h3>Claude + SOP: 20 мин вместо 4 часов</h3>
+<p>Формат: Цель → Триггер → Ответственный → Шаги → Чек-лист → Ошибки → Метрики</p>`,
+   prompts:[{l:'Создать SOP',p:`SOP для "[процесс]".\n\nКТО: [роль]\nЧАСТОТА: [как]\n\nОПИСАНИЕ: [опиши своими словами]\n\nСоздай:\n## Цель\n## Триггер\n## Ответственный\n## Шаги (детально)\n## Чек-лист\n## Ошибки → решения\n## Метрики\n## Версия 1.0 | Дата`},{l:'Обновить SOP',p:`Обнови SOP v1.0 после 2 недель.\n\nСТАРЫЙ: [вставь]\nЧТО НЕ РАБОТАЛО: [описание]\nЧТО ДОБАВИЛОСЬ: [новые шаги]\n\nСоздай v1.1.`}],
+   steps:[{s:'Выбери повторяющийся процесс'},{s:'Скопируй шаблон SOP',copy:true},{s:'Опиши как угодно — Claude структурирует'},{s:'В Notion → обновляй через 2 недели'}],
+   tips:['Loom + транскрипт = SOP за 20 мин','Нумеруй версии','Новый сотрудник должен выполнить с первого дня']},
+  {t:'OKR-планирование с Claude',xp:200,
+   theory:`<h3>Хороший Key Result</h3>
+<ul><li>✅ Измеримый (конкретная цифра)</li><li>✅ Амбициозный (70% вероятность)</li><li>✅ В твоём контроле</li><li>✅ Связан с Objective</li></ul>`,
+   prompts:[{l:'OKR сессия',p:`OKR на [квартал].\n\nКОНТЕКСТ:\n- Бизнес: [описание]\n- Прошлый период: [результаты]\n- Вызовы: [описание]\n\nПомоги: 2-3 Objectives + 3-4 KR каждый.\nПроверь каждый KR.`},{l:'Ретроспектива',p:`OKR ретроспектива [квартал].\n\nOKR: [список]\nРЕЗУЛЬТАТЫ: [достигнуто %]\n\n1. Что достигли и почему\n2. Не достигли — причины\n3. Паттерны\n4. Что изменить`}],
+   steps:[{s:'Скопируй OKR сессию',copy:true},{s:'Итерируй пока не "почувствуешь"'},{s:'Сохрани в Obsidian'},{s:'Еженедельная проверка 15 мин'}],
+   tips:['Objective вдохновляет, KR измеряет','70% достижимость = правильная амбиция','OKR раз в квартал']},
+  {t:'Cowork + Dispatch: автономные операции',xp:220,
+   theory:`<h3>Scheduled Tasks (апрель 2026)</h3>
+<p>Повторяющиеся задачи по расписанию в Cowork. Dispatch — управление со смартфона.</p>
+<h3>Лучшие сценарии</h3>
+<ul><li>Еженедельный отчёт: метрики → шаблон → документ</li><li>Онбординг клиента: папка + шаблоны + письмо</li><li>Ежедневный брифинг: email + Calendar + Slack</li></ul>`,
+   prompts:[{l:'Отчёт',p:`Задача Cowork: еженедельный отчёт.\n\nДАННЫЕ:\n1. Google Sheets: [метрики]\n2. Gmail: [важное за неделю]\n\nШАБЛОН: KPI + события + проблемы + приоритеты\n\nСохрани как [Название]-Weekly-[ДАТА].docx`},{l:'Онбординг',p:`Задача Cowork: онбординг клиента.\n\nКЛИЕНТ: имя [имя], email [email], тариф [тариф]\n\n1. Создай папку Клиенты/[Имя]\n2. Скопируй шаблон онбординга\n3. Заполни данными\n4. Черновик приветствия (жди одобрения)\n5. Напоминание через 7 дней`}],
+   steps:[{s:'Скопируй задачу для Cowork',copy:true},{s:'Открой Cowork в Desktop'},{s:'Смотри как планирует выполнение'},{s:'Pro+: добавь в Scheduled Tasks'}],
+   tips:['Всегда одобряй план перед выполнением','Начни с небольших безопасных задач','Dispatch: "собери данные пока на встрече"']}
+]},
+trading:{id:'trading',title:'Аналитика рынка',icon:'📊',color:'#F59E0B',desc:'⚠️ Аналитика, не советы',diff:'exp',missions:[
+  {t:'Структурированный анализ активов',xp:250,
+   theory:`<h3>⚠️ Дисклеймер</h3>
+<p style="background:#FDF0F3;color:#BB2649;padding:12px;border-radius:8px;margin-bottom:12px">Claude — аналитический инструмент. Не предсказывает цены. Не финансовый совет.</p>
+<h3>Claude Sonnet 4.6 на Finance Agent v1.1 (май 2026)</h3>
+<p><strong>63.3%</strong> — 1-е место среди всех LLM. Лучший для финансовых задач.</p>
+<h3>Что умеет</h3>
+<ul><li>✅ Структурировать технический анализ</li><li>✅ Анализировать отчётность</li><li>✅ Оценивать сентимент</li><li>❌ Предсказывать цены</li></ul>`,
+   prompts:[{l:'Анализ актива',p:`Аналитика (не рекомендация).\n\nАКТИВ: [тикер]\nДАТА ДАННЫХ: [дата]\n\nДАННЫЕ: [цены, объёмы, новости]\n\n1. ТЕХНИЧЕСКИЙ: тренд, уровни\n2. ФУНДАМЕНТАЛЬНЫЙ: ключевые метрики\n3. СЕНТИМЕНТ: новостной фон\n4. РИСКИ\n5. ВЫВОД: "за" и "против"\n\nТолько факты.`},{l:'Отчётность',p:`Анализ финансового отчёта.\n\nКОМПАНИЯ: [название]\nПЕРИОД: [квартал]\nДАННЫЕ: [выручка, прибыль, долг, FCF]\n\n1. РОСТ: динамика\n2. МАРЖИНАЛЬНОСТЬ\n3. БАЛАНС\n4. КАЧЕСТВО ПРИБЫЛИ\n5. RED FLAGS`}],
+   steps:[{s:'Скопируй анализ актива',copy:true},{s:'Собери данные из открытых источников'},{s:'Запусти анализ'},{s:'Один источник из многих — не единственный'}],
+   tips:['#1 Finance Agent 2026 — но это аналитика','Указывай ДАТУ данных — устаревшие опасны','Finviz, Macrotrends — хорошие источники']},
+  {t:'Чек-лист торговых решений',xp:250,
+   theory:`<h3>Структура вместо эмоций</h3>
+<p>Risk Management > Strategy Quality — в 3-5x важнее точки входа.</p>`,
+   prompts:[{l:'Чек-лист',p:`Персональный чек-лист.\n\nСТИЛЬ: [swing/intraday]\nАКТИВЫ: [что]\nРИСК: [% капитала]\n\nЧЕК-ЛИСТ ВХОДА (7 критериев):\n□ Технические:\n□ Фундаментальные:\n□ Макро:\n□ Риск:\n□ Тайминг:\n□ Stop:\n□ Target:\n\nОТМЕНА:\n□ Если...`}],
+   steps:[{s:'Скопируй чек-лист',copy:true},{s:'Создай свой из 7 критериев'},{s:'Используй для КАЖДОЙ сделки 30 дней'},{s:'Анализ: какие критерии чаще не выполнялись'}],
+   tips:['Нет галочки = нет позиции','Фото на телефон — решай спокойно','Если сомневаешься — нет позиции']},
+  {t:'Торговый журнал с AI-аналитикой',xp:250,
+   theory:`<h3>Журнал = разница между обучением и повторением</h3>
+<p>Что записывать: дата, актив, направление, объём, причина входа/выхода, P&L, эмоции.</p>`,
+   prompts:[{l:'Анализ журнала',p:`Анализ журнала.\n\nСДЕЛКИ: [таблица: дата, актив, лонг/шорт, вход, выход, P&L%, сигнал, заметки]\n\n1. WIN RATE и R:R\n2. Лучшие паттерны\n3. Паттерны убытков\n4. Психологические ошибки\n5. ТОП-3 изменения процесса`}],
+   steps:[{s:'Скопируй анализ журнала',copy:true},{s:'Записывай ВСЕ сделки 1 месяц'},{s:'Анализ по итогам'},{s:'1-2 конкретных изменения — не больше'}],
+   tips:['Журнал без анализа = запись','Психологические заметки — паттерны за 2-3 месяца','TraderVue делает аналитику автоматически']},
+  {t:'Мониторинг рынка: автоматизация',xp:200,
+   theory:`<h3>Claude API + данные = автоматический мониторинг</h3>
+<p>Данные → Claude анализирует → алерт в Telegram. Только мониторинг — решения принимает человек.</p>
+<h3>Источники (бесплатно)</h3>
+<ul><li>yfinance — акции</li><li>CoinGecko — крипто</li><li>NewsAPI — новости</li></ul>`,
+   prompts:[{l:'Скринер',p:`Python скринер с Claude.\n\nТИКЕРЫ: [список]\nКРИТЕРИИ: [RSI>70 / объём 2x / уровень]\n\n1. Данные через yfinance\n2. RSI, MA, Volume\n3. Claude Sonnet 4.6 анализирует\n4. Telegram алерт при срабатывании\n5. Cron каждые 30 мин\n\nМОДЕЛЬ: claude-sonnet-4-6-20250514\n\nmonitor.py + .env.example + requirements.txt`}],
+   steps:[{s:'Скопируй скринер',copy:true},{s:'Запусти на бумажном листе'},{s:'5-10 тикеров для старта'},{s:'Алерт = начало анализа, не сигнал'}],
+   tips:['Алерт ≠ сигнал — начало анализа','Claude Code Routines (2026) — запуск по расписанию','5-10 тикеров для старта']}
+]},
+code:{id:'code',title:'Claude Code',icon:'💻',color:'#06B6D4',desc:'AI-разработка в терминале',diff:'exp',missions:[
+  {t:'Установка и возможности 2026',xp:200,
+   theory:`<h3>Claude Code май 2026</h3>
+<ul><li>Включён в Team план (каждое место)</li><li>Rate limits удвоены для Pro/Max/Enterprise</li><li>1M токенов — весь монорепозиторий</li><li>Code Routines — агенты по расписанию</li><li>Channels (--channels) — MCP пуш-сообщения</li></ul>
+<h3>Установка</h3>
+<p><code>npm install -g @anthropic-ai/claude-code</code> (Node.js 18+)</p>`,
+   prompts:[{l:'Первые команды',p:`# Установка\nnpm install -g @anthropic-ai/claude-code\n\n# В проекте\ncd my-project && claude\n\n# Полезные:\nclaude "объясни архитектуру"\nclaude "найди все TODO"\nclaude "тесты для auth.py >80%"\nclaude "проверь безопасность API"\nclaude "рефактори по SOLID"`},{l:'CLAUDE.md',p:`# CLAUDE.md\n\n## Контекст\n[2-3 предложения]\n\n## Стек\n[технологии]\n\n## Стандарты\n- Type hints / TypeScript strict\n- Функции < 30 строк\n- Тесты для бизнес-логики\n\n## Команды\n\`\`\`bash\n# Dev, Test, Lint\n\`\`\`\n\n## Правила\n✅ делать / ❌ не делать`}],
+   steps:[{s:'Скопируй команды',copy:true},{s:'npm install -g @anthropic-ai/claude-code'},{s:'Создай CLAUDE.md в корне'},{s:'cd project && claude → "объясни структуру"'}],
+   tips:['1M контекст GA — весь репозиторий в одном запросе','Claude Code в Team плане — настрой для команды','CLAUDE.md + Skills = мощный контекст']},
+  {t:'Skills и специализация 2026',xp:250,
+   theory:`<h3>Skills — рецепты 2026</h3>
+<p>SKILL.md файлы. Новинка: <code>effort: low/normal/high/max</code> в frontmatter.</p>
+<h3>Топ</h3>
+<ul><li>frontend-design — 277K+ установок</li><li>simplify — рефакторинг</li><li>claude-api — встроен</li></ul>`,
+   prompts:[{l:'Установка',p:`# Официальные\nnpx skills add anthropics/claude-code --skill frontend-design\nnpx skills add anthropics/claude-code --skill simplify\n\n# Свой Skill\n# ~/.claude/skills/my-skill/SKILL.md:\n---\nname: my-skill\ndescription: Когда использовать. Use when [задача].\neffort: normal\n---\n\n## Стандарты проекта\n[правила]`},{l:'Создать Skill',p:`Создай Skill для Claude Code.\n\nПРОЕКТ: [описание]\nЗАДАЧИ: [список]\nСТАНДАРТЫ: [правила]\n\nСоздай SKILL.md:\n1. Frontmatter (name, description, effort)\n2. Стандарты\n3. Паттерны\n4. Запреты\n5. Примеры кода`}],
+   steps:[{s:'Скопируй установку Skills',copy:true},{s:'Установи frontend-design и simplify'},{s:'Создай свой Skill'},{s:'Проверь: Claude использует Skill?'}],
+   tips:['effort: high для review, low для шаблонного','Skill + примеры = лучше учится','Skill + CLAUDE.md = полный контекст']},
+  {t:'Routines: агенты по расписанию',xp:300,
+   theory:`<h3>Claude Code Routines (новинка май 2026)</h3>
+<p>Агентные задачи по расписанию без внешней cron-инфраструктуры.</p>
+<h3>Применения</h3>
+<ul><li>Ежедневный code review PR</li><li>Мониторинг логов</li><li>Сбор метрик</li><li>Trading agent 3 раза/день</li></ul>`,
+   prompts:[{l:'Routine шаблон',p:`.claude/routines/[задача].md:\n\n---\nschedule: "0 9 * * 1-5"\nmodel: claude-sonnet-4-6-20250514\nallowed-tools: [Read, Write, Bash]\n---\n\n# [Название]\n\n## Что делать\n[инструкция]\n\n## Критерии\n[что проверить]\n\n## Лог\n[формат]`},{l:'Code review',p:`Routine code review.\n\nЗАПУСК: каждый день 9:00\nЧТО: новые PR за 24ч\n\nАНАЛИЗ: качество, баги, security, coverage\n\nРЕЗУЛЬТАТ:\n- Комментарий в PR\n- Slack если критическое\n\nСоздай конфигурацию.`}],
+   steps:[{s:'Скопируй шаблон Routine',copy:true},{s:'Создай .claude/routines/ файл'},{s:'Запусти вручную → потом расписание'},{s:'Один Routine = одна чёткая задача'}],
+   tips:['Routines = Claude Code без тебя — начни с read-only','Журнал Routine сохраняй всегда','Routines + Managed Agents = мощная автоматизация']},
+  {t:'Managed Agents и мультиагентность',xp:300,
+   theory:`<h3>Managed Agents (публичная бета, апрель 2026)</h3>
+<p>Beta header: managed-agents-2026-04-01</p>
+<h3>Три новые функции (май 2026)</h3>
+<ul><li><strong>Multi-agent orchestration</strong> — флоты агентов</li><li><strong>Outcomes</strong> — критерий успеха, агент итерирует</li><li><strong>Dreaming</strong> — самоанализ прошлых сессий</li></ul>
+<h3>Advisor Tool (март 2026)</h3>
+<p>Opus 4.7 советник + Sonnet 4.6 исполнитель = ~5x дешевле.</p>`,
+   prompts:[{l:'Managed Agent',p:`Managed Agent.\n\nМОДЕЛЬ: claude-sonnet-4-6-20250514\nBETA: managed-agents-2026-04-01\nЦЕЛЬ: [описание]\n\n1. Системный промпт\n2. Инструменты\n3. Outcome критерий\n4. Python код запуска\n5. Парсинг SSE stream`},{l:'Advisor Tool',p:`Advisor + Executor.\n\nADVISOR: claude-opus-4-7-20250514-7-20250514\nEXECUTOR: claude-sonnet-4-6-20250514\nBETA: advisor-tool-2026-03-01\n\nКод + отслеживание токенов advisor vs executor.`}],
+   steps:[{s:'Изучи docs: platform.claude.com'},{s:'Скопируй Managed Agent',copy:true},{s:'Тест с beta-заголовком'},{s:'Advisor Tool для самых сложных задач'}],
+   tips:['Managed Agents в бете — API меняется','Advisor: 400-700 токенов Opus = качество близкое к полному Opus','Multi-agent для параллелизируемых задач']}
+]},
+ai:{id:'ai',title:'AI Stack',icon:'🤖',color:'#EC4899',desc:'RAG, мульти-AI, агенты',diff:'exp',missions:[
+  {t:'RAG: Claude с твоими документами',xp:300,
+   theory:`<h3>LlamaIndex + Chroma + Sonnet 4.6</h3>
+<table><tr><th>Projects</th><th>RAG</th></tr>
+<tr><td>&lt;150 страниц</td><td>Неограниченно</td></tr>
+<tr><td>Без кода</td><td>Разработка</td></tr>
+<tr><td>Команда</td><td>Продукт/API</td></tr></table>`,
+   prompts:[{l:'RAG система',p:`RAG-система.\n\nДОКУМЕНТЫ: [типы]\nМОДЕЛЬ: claude-sonnet-4-6-20250514\n\n1. ingest.py — загрузка, индексация\n2. query.py — поиск + ответ с источником\n3. app.py — Streamlit UI\n4. requirements.txt\n\nПерсистентность, error handling.`}],
+   steps:[{s:'Сначала попробуй Claude Projects'},{s:'Скопируй RAG промпт',copy:true},{s:'Подготовь 5-10 документов'},{s:'Деплой на Streamlit Cloud'}],
+   tips:['Projects = RAG без кода для большинства','Chunk 500-1500 токенов — пробуй разные','Production: Pinecone вместо Chroma']},
+  {t:'Мульти-AI архитектура',xp:300,
+   theory:`<h3>Стек май 2026</h3>
+<ul><li><strong>Opus 4.7</strong> — анализ, advisor ($5/$25 MTok)</li><li><strong>Sonnet 4.6</strong> — большинство задач (#1 Finance)</li><li><strong>Haiku 4.5</strong> — быстрые простые</li></ul>
+<h3>Advisor Tool — официальный паттерн</h3>
+<p>Opus советник + Sonnet исполнитель = качество Opus при цене Sonnet (~5x дешевле).</p>`,
+   prompts:[{l:'Роутер',p:`Мульти-AI архитектура.\n\nЗАДАЧИ:\n- [задача 1]\n- [задача 2]\n\nДОСТУПНО: Opus 4.7, Sonnet 4.6, Haiku 4.5\n\n1. Маппинг задач → модель\n2. Логика роутинга\n3. Python код роутера\n4. Cost vs quality оценка\n5. Когда Advisor Tool`},{l:'Advisor Tool',p:`Advisor + Executor.\n\nЗАДАЧА: [сложная]\nADVISOR: claude-opus-4-7-20250514-7-20250514\nEXECUTOR: claude-sonnet-4-6-20250514\nBETA: advisor-tool-2026-03-01\n\nКод + отслеживание cost vs quality.`}],
+   steps:[{s:'Скопируй роутер',copy:true},{s:'Определи маппинг для своей системы'},{s:'Измерь cost vs quality'},{s:'Advisor Tool для самых сложных задач'}],
+   tips:['Advisor: ~5x дешевле чистого Opus','Haiku для классификации, Sonnet для генерации','Мониторь токены с первого дня']},
+  {t:'LangChain + Claude 2026',xp:250,
+   theory:`<h3>LangChain с Claude Sonnet 4.6</h3>
+<p>Ключевые паттерны: Conversational RAG, Agent с инструментами, Structured output.</p>`,
+   prompts:[{l:'LangChain агент',p:`LangChain агент.\n\nМОДЕЛЬ: claude-sonnet-4-6-20250514\nИНСТРУМЕНТЫ:\n- Web search (Tavily)\n- Calculator\n\n1. ChatAnthropic инициализация\n2. Инструменты\n3. Агент (Tool Calling)\n4. Примеры запросов\n5. requirements.txt`}],
+   steps:[{s:'Скопируй LangChain агент',copy:true},{s:'pip install langchain-anthropic'},{s:'Добавь реальные инструменты'},{s:'Деплой: FastAPI + Docker'}],
+   tips:['pip install langchain-anthropic langchain-community','LangChain обновляется быстро — проверяй доки','Tool Calling через LangChain проще нативного']},
+  {t:'🏆 Финальный: AI-OS',xp:500,
+   theory:`<h3>Персональная AI-операционная система</h3>
+<p>Ты освоил: Claude 2026, Промпты, Маркетинг, Second Brain, Соцсети, MCP, Memory, Code, Routines, Managed Agents, RAG, мульти-AI.</p>
+<p>Финальная задача: собрать всё в единую систему.</p>`,
+   prompts:[{l:'AI-OS дизайн',p:`Спроектируй мою AI-OS.\n\nБИЗНЕС: [описание]\nИНСТРУМЕНТЫ: [список]\nТОП-5 ЗАДАЧ: [список]\n\n1. УТРЕННИЙ РИТУАЛ (Cowork + Dispatch)\n2. МАРКЕТИНГ-МАШИНА\n3. БАЗА ЗНАНИЙ (Obsidian + Memory + Projects)\n4. РЫНОЧНАЯ РАЗВЕДКА\n5. ОПЕРАЦИИ (OKR + SOP)\n6. АВТОМАТИЗАЦИИ\n7. AI STACK (модели → задачи)\n\nДля каждого: ключевой промпт + инструменты.`}],
+   steps:[{s:'Скопируй AI-OS дизайн',copy:true},{s:'Заполни бизнес и задачи'},{s:'Получи систему'},{s:'В Obsidian: [[My AI OS 2026]]'}],
+   tips:['AI-OS — итеративная система','Начни с 2-3 автоматизаций','Пересматривай раз в квартал']}
+]},
+tradingbot:{id:'tradingbot',title:'AI Trading Bot',icon:'📈',color:'#7C3AED',desc:'Создание AI trading бота',diff:'exp',missions:[
+  {t:'Архитектура AI Trading бота',xp:300,
+   theory:`<h3>⚠️ ОБЯЗАТЕЛЬНЫЙ ДИСКЛЕЙМЕР</h3>
+<p style="background:#FDF0F3;color:#BB2649;padding:12px;border-radius:8px;margin-bottom:12px">Алгоритмическая торговля несёт реальный финансовый риск. ТОЛЬКО paper trading для начала. Никогда не торгуй средствами которые не можешь потерять. Не является финансовым советом.</p>
+<h3>Pipeline AI Trading бота</h3>
+<p>Данные → AI анализ → решение → исполнение → лог. Claude Sonnet 4.6 = decision engine (#1 Finance Agent 2026)</p>
+<h3>Рекомендуемый стек (2026)</h3>
+<ul><li><strong>Broker API:</strong> Alpaca (бесплатный paper trading)</li><li><strong>Data:</strong> yfinance, NewsAPI</li><li><strong>AI:</strong> Claude Sonnet 4.6 (claude-sonnet-4-6-20250514)</li><li><strong>Python:</strong> 3.11+</li><li><strong>Scheduling:</strong> Claude Code Routines или APScheduler</li></ul>`,
+   prompts:[{l:'Архитектура',p:`Спроектируй AI trading бота.\n\nСТИЛЬ: swing trading (для старта)\nАКТИВЫ: акции США (paper trading)\n\nМодули:\n1. DATA: источники + частота обновления\n2. ANALYSIS: технические индикаторы (RSI, MA, Volume, ATR)\n3. AI ENGINE: системный промпт Claude, формат JSON ответа\n4. RISK MODULE: обязательные ограничения\n5. EXECUTION: Alpaca paper API\n6. LOGGING: CSV журнал + reasoning\n7. ALERTS: Telegram уведомления\n\nАрхитектура: монолит vs микросервисы?`},{l:'Структура проекта',p:`Структура Python проекта.\n\n.env, requirements.txt, CLAUDE.md\n\nМодули:\n- data/ — сбор данных\n- analysis/ — индикаторы\n- agent/ — Claude decision engine\n- execution/ — Alpaca обёртка\n- risk/ — проверки\n- logging/ — CSV журнал\n- monitoring/ — Telegram\n- backtest/ — бэктестинг\n\nДля каждого: filename.py + описание API`}],
+   steps:[{s:'Скопируй промпт архитектуры',copy:true},{s:'Получи дизайн системы'},{s:'Создай структуру проекта'},{s:'ТОЛЬКО paper trading (Alpaca sandbox)'}],
+   tips:['Swing trading для старта — больше времени на анализ','1 актив для начала (AAPL или BTC)','Paper trading 3-6 месяцев ОБЯЗАТЕЛЬНО до реальных денег']},
+  {t:'Data Pipeline: рыночные данные',xp:300,
+   theory:`<h3>Качество данных определяет качество решений</h3>
+<h3>Источники (бесплатно)</h3>
+<table><tr><th>Источник</th><th>Что</th><th>Цена</th></tr>
+<tr><td>yfinance</td><td>OHLCV акции</td><td>Бесплатно</td></tr>
+<tr><td>Alpha Vantage</td><td>OHLCV + fundamentals</td><td>Free/$50+</td></tr>
+<tr><td>CoinGecko</td><td>Крипто</td><td>Free/$129+</td></tr>
+<tr><td>NewsAPI</td><td>Новости по тикеру</td><td>Free/$449+</td></tr></table>
+<h3>Индикаторы для старта</h3>
+<p><code>pandas_ta</code>: RSI(14), SMA(20/50), Volume_ratio, ATR(14)</p>`,
+   prompts:[{l:'Data Pipeline',p:`Python data pipeline.\n\nТИКЕРЫ: [список]\nИСТОЧНИК: yfinance\nИНДИКАТОРЫ: RSI(14), SMA(20/50), Volume_ratio, ATR(14)\n\n1. data_fetcher.py — загрузка + кэш\n2. indicators.py — расчёт\n3. Формат для Claude:\n{\n  \"symbol\": \"AAPL\",\n  \"price\": 185.50,\n  \"change_1d_pct\": 1.2,\n  \"rsi_14\": 62.3,\n  \"above_sma_20\": true,\n  \"volume_vs_avg\": 1.4\n}\n4. Обновление каждые 30 мин\n5. Error handling + логирование`},{l:'Sentiment новостей',p:`Sentiment анализ новостей.\n\nИСТОЧНИК: NewsAPI\nТИКЕРЫ: [список]\n\nnews_sentiment.py:\n1. Топ-5 новостей за 24ч\n2. Claude Haiku 4.5 оценивает (-5 до +5)\n3. Агрегированный score\n4. Summary нарратива\n5. Флаги: earnings_soon, analyst_upgrade\n\nHaiku 4.5 — дешевле для batch новостей.`}],
+   steps:[{s:'Скопируй Data Pipeline',copy:true},{s:'pip install yfinance pandas_ta newsapi-python anthropic'},{s:'Запусти для 3-5 тикеров'},{s:'Добавь sentiment после основного pipeline'}],
+   tips:['yfinance задержка ~15 мин — норма для swing','Кэшируй — не делай лишних API запросов','Validate: проверяй не NaN и дату данных']},
+  {t:'Claude как Decision Engine',xp:350,
+   theory:`<h3>Human-in-loop ОБЯЗАТЕЛЕН</h3>
+<p>Claude предоставляет анализ с уровнем уверенности. Финальное решение за оператором.</p>
+<h3>Формат решения JSON</h3>
+<pre style="background:var(--bg);padding:10px;border-radius:8px;font-size:11px">{"action":"BUY|SELL|HOLD",\n "confidence":"HIGH|MEDIUM|LOW",\n "reasoning":"...",\n "entry_price":185.50,\n "stop_loss":182.00,\n "take_profit":192.00,\n "risk_flag":false}</pre>
+<h3>Системный промпт — ключевой файл</h3>
+<p>Определяет "дисциплину" агента. HOLD = действие по умолчанию.</p>`,
+   prompts:[{l:'Decision Engine',p:`Python Decision Engine.\n\nСТИЛЬ: swing trading\nРИСК: 1-2% капитала\n\n1. trading_agent_prompt.txt:\n   - Роль и принципы\n   - Критерии BUY (5+ конкретных условий)\n   - Критерии SELL\n   - HOLD по умолчанию\n   - Risk rules (запреты)\n   - Формат JSON (строгий)\n\n2. agent.py:\n   - Принимает market_snapshot dict\n   - claude-sonnet-4-6-20250514\n   - Парсит JSON ответ\n   - Логирует reasoning\n\n3. decision_validator.py:\n   - Проверки перед исполнением`},{l:'Системный промпт агента',p:`Системный промпт Trading Agent.\n\nСТИЛЬ: [swing/intraday]\nРИСК: 1% капитала/сделку\n\nСоздай промпт:\n1. Роль агента\n2. Критерии BUY (5+ условий)\n3. Критерии SELL (stop + profit)\n4. Критерии HOLD (по умолчанию!)\n5. Risk rules (что НИКОГДА)\n6. Формат JSON строгий\n7. Confidence: когда HIGH/MEDIUM/LOW\n8. risk_flag: когда true`}],
+   steps:[{s:'Скопируй Decision Engine',copy:true},{s:'Создай системный промпт — потрать время'},{s:'100 dry-run на исторических данных'},{s:'Норма: BUY в 10-30% случаев от всех сигналов'}],
+   tips:['Хороший промпт = дисциплинированный агент','HOLD по умолчанию — не BUY/SELL','Логируй reasoning — данные для улучшения']},
+  {t:'Backtesting и оптимизация',xp:350,
+   theory:`<h3>Backtesting обязателен перед реальными деньгами</h3>
+<h3>Ключевые метрики</h3>
+<ul><li><strong>Sharpe Ratio</strong> (&gt;1.0 хорошо, &gt;2.0 — проверь overfitting)</li><li><strong>Max Drawdown</strong> (&lt;20%)</li><li><strong>Win Rate</strong> (60%+ при 1:1 R:R)</li><li><strong>100+ сделок</strong> для значимости</li></ul>
+<h3>Ловушки</h3>
+<ul><li>Overfitting — оптимизация под прошлое</li><li>Look-ahead bias — будущие данные</li></ul>`,
+   prompts:[{l:'Backtesting',p:`Backtesting системы.\n\nДАТА: yfinance, [2 года]\nСТРАТЕГИЯ: Claude Decision Engine\nКАПИТАЛ: [сумма]\n\nbacktest.py:\n1. Исторические данные\n2. Walk-forward (нет look-ahead bias)\n3. Claude для каждого момента\n4. Slippage 0.1%\n5. Sharpe, MaxDD, WinRate, Return\n6. Equity curve matplotlib\n7. vs Buy&Hold benchmark`},{l:'Анализ результатов',p:`Анализ backtesting.\n\nRETURN: [X%], SHARPE: [X], MAX DD: [X%]\nWIN RATE: [X%], R:R: [X:1]\nСДЕЛОК: [N], ПЕРИОД: [период]\nBENCHMARK: [X%]\n\n1. Статистическая значимость?\n2. Признаки overfitting?\n3. Где теряем больше?\n4. Что улучшить в промпте?\n5. Готова к paper trading?`}],
+   steps:[{s:'Скопируй backtesting',copy:true},{s:'Запусти на 2 годах (2023-2024)'},{s:'Анализ результатов'},{s:'Итерируй промпт агента 5-10 раз'}],
+   tips:['Sharpe < 0.5 = не работает. > 2.0 = проверь overfitting','Out-of-sample тест = честный результат','100+ сделок для статистической значимости']},
+  {t:'Деплой и мониторинг в продакшн',xp:400,
+   theory:`<h3>Критерии перехода к реальным деньгам</h3>
+<ul><li>✅ 3-6 месяцев успешного paper trading</li><li>✅ 100+ сделок с положительным Sharpe</li><li>✅ Понимаешь каждый модуль кода</li><li>✅ Мониторинг и алерты работают</li><li>✅ Начинаешь с МИНИМАЛЬНЫМ размером</li></ul>
+<h3>Архитектура продакшн</h3>
+<ul><li>Railway ($5/мес) — хостинг</li><li>Alpaca — брокер (акции США)</li><li>Telegram — алерты каждого решения</li><li>Human-in-loop первые 3 месяца</li></ul>`,
+   prompts:[{l:'Production бот',p:`Production trading бот.\n\nРЕЖИМ: paper trading ОБЯЗАТЕЛЬНО\nБРОКЕР: Alpaca Paper API\nХОСТИНГ: Railway\n\n1. main.py — loop 3x/день (10:00, 14:00, 18:00)\n2. alpaca_broker.py — paper mode обёртка\n3. risk_manager.py:\n   - Макс X% в позиции\n   - Макс Y% дневного убытка → стоп\n   - Проверки перед ордером\n4. telegram_alerts.py — каждое решение ДО исполнения\n5. journal.py — CSV + reasoning Claude\n6. health_check.py\n\nDocker + Railway deploy конфиг`},{l:'Streamlit дашборд',p:`Дашборд мониторинга.\n\nДАТАСОРС: CSV журнал\n\n1. Equity curve\n2. Win rate последних N\n3. Открытые позиции\n4. Последние 10 решений + reasoning\n5. P&L дн/нед/мес\n6. Drawdown\n7. Алерт если drawdown > 10%\n\nАвтообновление каждые 5 мин.`}],
+   steps:[{s:'Скопируй production бот',copy:true},{s:'Деплой на Railway: GitHub → автодеплой'},{s:'Telegram алерты — каждое решение вручную первые 3 месяца'},{s:'ТОЛЬКО PAPER TRADING минимум 3 месяца'}],
+   tips:['Railway $5/мес + GitHub автодеплой = идеально','Алерт ДО исполнения — обязателен для безопасности','Первые 3 месяца: ежедневно проверяй reasoning']}
+]},
+};
+
+/* ===== SKILLS ===== */
+const SKILLS={
+anthropic:[
+  {n:'pptx',i:'📊',bg:'#EBF3FC',d:'Создание PowerPoint: управление слайдами, анимации, темы, диаграммы.',tag:'Документы',cmd:'skill_id: "pptx" (Claude API)',link:'https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview',s:5},
+  {n:'xlsx',i:'📋',bg:'#EBF8F3',d:'Работа с Excel: формулы, сводные таблицы, графики, макросы.',tag:'Документы',cmd:'skill_id: "xlsx" (Claude API)',link:'https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview',s:5},
+  {n:'docx',i:'📝',bg:'#EBF3FC',d:'Создание Word: форматирование, стили, оглавление, таблицы, разделы.',tag:'Документы',cmd:'skill_id: "docx" (Claude API)',link:'https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview',s:5},
+  {n:'pdf',i:'📄',bg:'#FDF0F3',d:'PDF: чтение, анализ, заполнение форм, извлечение данных, создание.',tag:'Документы',cmd:'skill_id: "pdf" (Claude API)',link:'https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview',s:5},
+  {n:'frontend-design',i:'🎨',bg:'#F5F0FF',d:'UI с высоким качеством дизайна. Избегает generic AI-эстетики. 277K+ установок.',tag:'Разработка',cmd:'npx skills add anthropics/claude-code --skill frontend-design',link:'https://github.com/anthropics/skills',s:5},
+  {n:'simplify',i:'✂️',bg:'#FEF9E7',d:'Рефакторинг: DRY, SOLID, читаемость, устранение дублирования.',tag:'Разработка',cmd:'npx skills add anthropics/claude-code --skill simplify',link:'https://github.com/anthropics/skills',s:4},
+  {n:'claude-api',i:'🔌',bg:'#EBF3FC',d:'Документация Claude API и SDK для 8 языков. Встроен в Claude Code.',tag:'Разработка',cmd:'Встроен в Claude Code',link:'https://docs.claude.com',s:4},
+  {n:'skill-creator',i:'⚡',bg:'#FFF3EC',d:'Meta-skill: создавай, тестируй, оптимизируй свои Skills с eval-системой.',tag:'Meta',cmd:'npx skills add anthropics/claude-code --skill skill-creator',link:'https://github.com/anthropics/skills',s:4},
+  {n:'data-analysis',i:'📈',bg:'#EBF8F3',d:'Анализ данных: статистика, паттерны, визуализация. Работает с CSV/JSON.',tag:'Аналитика',cmd:'npx skills add anthropics/claude-code --skill data-analysis',link:'https://github.com/anthropics/skills',s:4},
+  {n:'pdf-reading',i:'📑',bg:'#FDF0F3',d:'Продвинутое чтение PDF: OCR, таблицы, формы, образцы документов.',tag:'Документы',cmd:'skill_id: "pdf-reading" (Claude API)',link:'https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview',s:4},
+],
+community:[
+  {n:'memory-mcp',i:'🧠',bg:'#F5F0FF',d:'Persistent memory через Knowledge Graph. Claude помнит между сессиями.',tag:'Память',cmd:'npx -y @modelcontextprotocol/server-memory',link:'https://github.com/modelcontextprotocol/servers',s:5},
+  {n:'summarize-changes',i:'📜',bg:'#EBF8F3',d:'Резюмирует uncommitted git изменения и флагирует риски. Must-have.',tag:'Git',cmd:'~/.claude/skills/summarize-changes/SKILL.md',link:'https://code.claude.com/docs/en/skills',s:5},
+  {n:'commit-message',i:'💬',bg:'#EBF3FC',d:'Генерирует Conventional Commits messages по изменениям автоматически.',tag:'Git',cmd:'~/.claude/skills/commit-message/SKILL.md',link:'https://github.com/travisvn/awesome-claude-skills',s:5},
+  {n:'pr-description',i:'📋',bg:'#FEF5D9',d:'Детальные Pull Request descriptions с контекстом и тест-планом.',tag:'Git',cmd:'~/.claude/skills/pr-description/SKILL.md',link:'https://github.com/travisvn/awesome-claude-skills',s:5},
+  {n:'test-generator',i:'🧪',bg:'#EBF8F3',d:'Unit-тесты с высоким покрытием. pytest, Jest, Vitest, JUnit.',tag:'Тестирование',cmd:'~/.claude/skills/test-generator/SKILL.md',link:'https://github.com/travisvn/awesome-claude-skills',s:4},
+  {n:'sentry-review',i:'🐛',bg:'#FDF0F3',d:'Анализирует ошибки из Sentry и предлагает фиксы в GitHub PR.',tag:'DevOps',cmd:'Через Sentry MCP интеграцию',link:'https://github.com/getsentry',s:4},
+  {n:'readme-generator',i:'📖',bg:'#FFF3EC',d:'Профессиональный README.md с бейджами, структурой, примерами.',tag:'Документация',cmd:'~/.claude/skills/readme-generator/SKILL.md',link:'https://github.com/travisvn/awesome-claude-skills',s:4},
+  {n:'security-audit',i:'🔒',bg:'#FDF0F3',d:'Анализ кода на OWASP Top 10, SQL injection, XSS, утечки секретов.',tag:'Безопасность',cmd:'~/.claude/skills/security-audit/SKILL.md',link:'https://github.com/travisvn/awesome-claude-skills',s:4},
+  {n:'playwright-mcp',i:'🌐',bg:'#EBF8F3',d:'Браузерная автоматизация, E2E тесты, web scraping. Топ сообщества.',tag:'Автоматизация',cmd:'npx -y @executeautomation/playwright-mcp-server',link:'https://github.com/microsoft/playwright-mcp',s:5},
+  {n:'chroma-rag',i:'🔍',bg:'#F5F0FF',d:'Векторная БД для RAG. Семантический поиск документов.',tag:'AI',cmd:'uvx chroma-mcp --client-type persistent',link:'https://docs.trychroma.com',s:4},
+  {n:'debug-session',i:'🔧',bg:'#EBF3FC',d:'Структурированный дебаггинг: изоляция → гипотезы → решение.',tag:'Разработка',cmd:'~/.claude/skills/debug-session/SKILL.md',link:'https://github.com/travisvn/awesome-claude-skills',s:4},
+  {n:'api-conventions',i:'📐',bg:'#FEF5D9',d:'Стандарты API проекта: naming, error formats, validation.',tag:'Разработка',cmd:'~/.claude/skills/api-conventions/SKILL.md',link:'https://code.claude.com/docs/en/skills',s:3},
+]};
+/* ===== PLUGINS ===== */
+const PLUGINS={
+mcp:[
+  {n:'filesystem',i:'📁',bg:'#EBF3FC',d:'Доступ к файловой системе: чтение, запись, организация.',cmd:'npx -y @modelcontextprotocol/server-filesystem ~/Projects',link:'https://github.com/modelcontextprotocol/servers',official:true,s:5},
+  {n:'memory',i:'🧠',bg:'#F5F0FF',d:'Knowledge Graph между сессиями. SQLite, локально, приватно.',cmd:'npx -y @modelcontextprotocol/server-memory',link:'https://github.com/modelcontextprotocol/servers',official:true,s:5},
+  {n:'github',i:'🐙',bg:'#F5F5F5',d:'GitHub: репозитории, PR, Issues, Code, Actions, Releases.',cmd:'npx -y @modelcontextprotocol/server-github',link:'https://github.com/modelcontextprotocol/servers',official:true,s:5},
+  {n:'brave-search',i:'🔍',bg:'#FFF3EC',d:'Веб-поиск Brave. Актуальная информация без рекламы.',cmd:'npx -y @modelcontextprotocol/server-brave-search',link:'https://github.com/modelcontextprotocol/servers',official:true,s:5},
+  {n:'playwright',i:'🌐',bg:'#EBF8F3',d:'Браузерная автоматизация, скрапинг, тестирование. Топ сообщества.',cmd:'npx -y @executeautomation/playwright-mcp-server',link:'https://github.com/microsoft/playwright-mcp',official:false,s:5},
+  {n:'postgres',i:'🐘',bg:'#EBF3FC',d:'Прямые SQL-запросы к PostgreSQL. Schema, данные, аналитика.',cmd:'npx -y @modelcontextprotocol/server-postgres',link:'https://github.com/modelcontextprotocol/servers',official:true,s:4},
+  {n:'sqlite',i:'🗃',bg:'#EBF8F3',d:'SQLite базы данных. Запросы, модификация, анализ.',cmd:'npx -y @modelcontextprotocol/server-sqlite',link:'https://github.com/modelcontextprotocol/servers',official:true,s:4},
+  {n:'obsidian',i:'🗂',bg:'#F5F0FF',d:'Чтение и запись заметок Obsidian. Полная интеграция с vault.',cmd:'npx -y mcp-obsidian',link:'https://github.com/MarkusvonStaden/mcp-obsidian',official:false,s:4},
+  {n:'notion',i:'📓',bg:'#F5F5F5',d:'Notion: страницы, базы данных, блоки. Чтение и запись.',cmd:'npx -y @suekou/mcp-notion-server',link:'https://github.com/makenotion/notion-mcp-server',official:false,s:4},
+  {n:'docker',i:'🐳',bg:'#EBF3FC',d:'Docker: build, run, logs, inspect, compose. DevOps автоматизация.',cmd:'npx -y @modelcontextprotocol/server-docker',link:'https://github.com/ckreiling/mcp-server-docker',official:false,s:4},
+  {n:'linear',i:'📐',bg:'#F5F0FF',d:'Linear: issues, cycles, teams. Claude создаёт задачи из диалога.',cmd:'npx -y linear-mcp-server',link:'https://github.com/jerhadf/linear-mcp-server',official:false,s:4},
+  {n:'supabase',i:'⚡',bg:'#EBF8F3',d:'Supabase: таблицы, Auth, Storage, Edge Functions.',cmd:'npx -y @supabase/mcp-server-supabase',link:'https://github.com/supabase-community/supabase-mcp',official:false,s:4},
+  {n:'chroma',i:'🔍',bg:'#F5F0FF',d:'Векторная БД Chroma. Семантический поиск для RAG.',cmd:'uvx chroma-mcp --client-type persistent --data-dir ~/.chroma',link:'https://docs.trychroma.com',official:false,s:4},
+  {n:'slack',i:'💬',bg:'#EBF8F3',d:'Slack: чтение каналов, отправка сообщений, поиск.',cmd:'npx -y @modelcontextprotocol/server-slack',link:'https://github.com/modelcontextprotocol/servers',official:true,s:3},
+  {n:'figma',i:'🎨',bg:'#FFF3EC',d:'Figma: чтение дизайн-файлов, компоненты, стили.',cmd:'npx -y figma-mcp-server',link:'https://github.com/ALucek/figma-mcp',official:false,s:3},
+],
+connectors:[
+  {n:'Google Drive',i:'📂',bg:'#EBF3FC',d:'Чтение и создание файлов Google Drive в диалоге.',cmd:'claude.ai → Settings → Connectors → Google Drive',link:'https://support.claude.ai',official:true,s:5},
+  {n:'Gmail',i:'✉️',bg:'#FDF0F3',d:'Чтение писем, поиск, создание черновиков.',cmd:'claude.ai → Settings → Connectors → Gmail',link:'https://support.claude.ai',official:true,s:5},
+  {n:'Google Calendar',i:'📅',bg:'#EBF3FC',d:'Просмотр и управление событиями Google Calendar.',cmd:'claude.ai → Settings → Connectors → Google Calendar',link:'https://support.claude.ai',official:true,s:5},
+  {n:'Slack',i:'💬',bg:'#EBF8F3',d:'Чтение каналов, поиск, отправка сообщений.',cmd:'claude.ai → Settings → Connectors → Slack',link:'https://support.claude.ai',official:true,s:4},
+  {n:'GitHub',i:'🐙',bg:'#F5F5F5',d:'Просмотр репозиториев, файлов, Issues, Pull Requests.',cmd:'claude.ai → Settings → Connectors → GitHub',link:'https://support.claude.ai',official:true,s:4},
+  {n:'Notion',i:'📓',bg:'#F5F5F5',d:'Поиск и чтение страниц и баз данных Notion.',cmd:'claude.ai → Settings → Connectors → Notion',link:'https://support.claude.ai',official:true,s:4},
+  {n:'Jira',i:'🎯',bg:'#EBF3FC',d:'Просмотр задач, спринтов, проектов Jira.',cmd:'claude.ai → Settings → Connectors → Jira',link:'https://support.claude.ai',official:true,s:4},
+  {n:'n8n',i:'🔄',bg:'#FEF5D9',d:'Open-source автоматизация. 400+ интеграций с Claude.',cmd:'n8n.io → HTTP Request Node → Claude API',link:'https://n8n.io',official:false,s:5},
+  {n:'Make (Integromat)',i:'⚙️',bg:'#FFF3EC',d:'No-code автоматизация. Claude через HTTP модуль.',cmd:'make.com → HTTP module → Claude API',link:'https://make.com',official:false,s:5},
+  {n:'Zapier',i:'⚡',bg:'#FEF5D9',d:'Популярная автоматизация. Claude Actions в Zap.',cmd:'zapier.com → Claude action',link:'https://zapier.com',official:false,s:4},
+  {n:'LangChain',i:'🦜',bg:'#EBF8F3',d:'AI-фреймворк. Claude как LLM, RAG, Agents.',cmd:'pip install langchain-anthropic',link:'https://python.langchain.com',official:false,s:4},
+  {n:'LlamaIndex',i:'🦙',bg:'#FFF3EC',d:'Data framework для RAG. Claude + документы.',cmd:'pip install llama-index-llms-anthropic',link:'https://llamaindex.ai',official:false,s:4},
+]};
+/* ===== STATE ===== */
+let S={view:'map',trackId:null,mIdx:0,done:{},xp:0,badges:[],name:'',tab:'theory',promptTab:0,skillTab:'anthropic',pluginTab:'mcp',isMobile:window.innerWidth<700,viewingShared:false,sharedData:null};
+function load(){try{const d=JSON.parse(localStorage.getItem('ca_v4')||'{}');['done','xp','badges','name'].forEach(k=>{if(d[k]!==undefined)S[k]=d[k];});}catch(e){}}
+function save(){localStorage.setItem('ca_v4',JSON.stringify({done:S.done,xp:S.xp,badges:S.badges,name:S.name}));}
+/* ===== HELPERS ===== */
+const LVL_IDX=xp=>{let l=0;for(let i=LVL.length-1;i>=0;i--){if(xp>=LVL[i].min){l=i;break;}}return l;};
+const getLvl=()=>({idx:LVL_IDX(S.xp)+1,...LVL[LVL_IDX(S.xp)]});
+const isDone=(t,i)=>(S.done[t]||[]).includes(i);
+const tDone=t=>(S.done[t]||[]).length;
+const totDone=()=>Object.values(TRACKS).reduce((a,t)=>a+tDone(t.id),0);
+const totM=()=>Object.values(TRACKS).reduce((a,t)=>a+t.missions.length,0);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const gT=()=>TRACKS[S.trackId];
+const gM=()=>gT()?.missions[S.mIdx];
+const lvlPct=()=>{const l=getLvl();const next=LVL[Math.min(l.idx,LVL.length-1)]?.min||S.xp;const prev=LVL[l.idx-1]?.min||0;return Math.min(100,((S.xp-prev)/Math.max(1,next-prev)*100)).toFixed(1);};
+async function copyText(t){try{await navigator.clipboard.writeText(t);}catch(e){const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');a.remove();}}
+function toast(ico,msg,col='#3DA876'){document.querySelectorAll('.toast').forEach(e=>e.remove());const el=document.createElement('div');el.className='toast';el.innerHTML=`${ico}<span>${msg}</span>`;el.style.background=col;document.body.appendChild(el);setTimeout(()=>el?.remove(),3000);}
+function floatXP(n){const el=document.createElement('div');el.className='xpf';el.textContent=`+${n} XP! 🎉`;document.body.appendChild(el);setTimeout(()=>el?.remove(),1500);}
+function shareURL(){try{var json=JSON.stringify({xp:S.xp,done:S.done,badges:S.badges,name:S.name});var bytes=new TextEncoder().encode(json);var bin=String.fromCharCode.apply(null,bytes);var b64=btoa(bin);return location.href.split('#')[0]+'#p='+b64;}catch(e){return location.href;}}
+function doComplete(tid,i){if(!S.done[tid])S.done[tid]=[];if(!S.done[tid].includes(i)){S.done[tid].push(i);const m=TRACKS[tid]?.missions[i];const g=m?.xp||100;S.xp+=g;save();checkBadges(tid);floatXP(g);toast('🎉',`+${g} XP заработано!`);return g;}return 0;}
+function checkBadges(tid){if(!S.badges.includes('f1')&&totDone()>=1)S.badges.push('f1');const tr=TRACKS[tid];if(tr&&tDone(tid)>=tr.missions.length&&!S.badges.includes(tid)){S.badges.push(tid);const b=BADGES.find(x=>x.id===tid);toast('🏆',`Достижение: ${b?.n||tid}`,'#6667AB');}if(totDone()>=totM()&&!S.badges.includes('boss')){S.badges.push('boss');toast('👑','Claude Expert! Все треки завершены!','#BB2649');}save();}
+window.addEventListener('resize',()=>{const m=window.innerWidth<700;if(m!==S.isMobile){S.isMobile=m;render();}});
+/* ===== RENDER ===== */
+function render(){
+  const app=document.getElementById('app');
+  if(S.viewingShared){app.innerHTML=renderShared();bindShared();return;}
+  if(S.isMobile){app.innerHTML=renderMob();bindAll();}
+  else{app.innerHTML=renderPC();bindAll();}
+}
+function renderPC(){return`<div class="app-pc"><div class="sidebar">${renderSB()}</div><div class="main">${renderMain()}</div></div>`;}
+function renderMob(){return`<div class="app-mobile"><div class="mob-header">${renderMobHdr()}</div><div class="main" style="flex:1;overflow-y:auto">${renderMain()}</div><div class="mob-nav">${renderMobNav()}</div></div>`;}
+function renderSB(){
+  const l=getLvl();const done=totDone(),total=totM();const greeting=S.name?`${S.name} 👋`:'Добро пожаловать!';
+  const navs=[{id:'map',i:'🗺',n:'Путь'},{id:'skills',i:'📦',n:'Skills'},{id:'plugins',i:'🔌',n:'Плагины'},{id:'deploy',i:'🚀',n:'Опубликовать'},{id:'profile',i:'👤',n:'Профиль'}];
+  return`<div class="sb-logo"><div class="logo-txt">Claude<span>Academy</span></div><div style="font-size:10px;color:var(--t3);margin-top:2px">12 треков · 46 миссий</div></div>
+  <div class="sb-prof"><div style="display:flex;align-items:center;gap:10px"><div class="lvl-ring">${l.idx}</div><div style="flex:1"><div style="font-family:var(--fh);font-weight:800;font-size:13px">${esc(greeting)}</div><div style="font-size:11px;color:var(--peri);font-weight:700">${l.n}</div><div style="font-size:10px;color:var(--t2)">${S.xp.toLocaleString()} XP · ${done}/${total}</div></div></div><div class="xp-bar" style="margin-top:8px"><div class="xp-fill" style="width:${lvlPct()}%"></div></div></div>
+  <div class="sb-nav">
+    ${navs.map(n=>`<button class="nav-btn ${S.view===n.id&&!S.trackId?'on':''}" data-v="${n.id}"><span class="ni2">${n.i}</span>${n.n}</button>`).join('')}
+    <div style="border-top:1px solid var(--border);margin:8px 0;padding-top:8px"><div style="font-size:9px;color:var(--t3);padding:0 14px;margin-bottom:4px;text-transform:uppercase;letter-spacing:.06em">Треки обучения</div>
+    ${CHAPTERS.map(ch=>ch.tracks.map(tid=>{const tr=TRACKS[tid];const c=tDone(tid),tot=tr.missions.length;return`<button class="nav-btn ${S.trackId===tid?'on':''}" data-track="${tid}" style="font-size:12px;padding:7px 12px">${tr.icon} ${tr.title}<span style="margin-left:auto;font-size:10px;color:var(--t3)">${c}/${tot}</span></button>`;}).join('')).join('')}
+    </div>
+  </div>
+  <div class="sb-foot"><div style="background:var(--peach-l);border-radius:var(--rs);padding:10px 12px;display:flex;align-items:center;gap:8px"><span style="font-size:20px">🏅</span><div><div style="font-family:var(--fh);font-weight:800;font-size:12px">${S.badges.length}/${BADGES.length} значков</div><div style="font-size:10px;color:var(--t2)">Продолжай учиться!</div></div></div></div>`;}
+function renderMobHdr(){const l=getLvl();const nm=S.name||'Claude Academy';return`<div style="display:flex;align-items:center;gap:9px"><div class="lvl-ring" style="width:34px;height:34px;font-size:13px">${l.idx}</div><div style="flex:1"><div style="font-family:var(--fh);font-weight:900;font-size:13px">${esc(nm)}</div><div style="font-size:10px;color:var(--t2)">${l.n} · ${S.xp.toLocaleString()} XP</div></div><div class="xp-bar" style="width:60px;height:5px"><div class="xp-fill" style="width:${lvlPct()}%"></div></div></div>`;}
+function renderMobNav(){const navs=[{id:'map',i:'🗺',n:'Путь'},{id:'skills',i:'📦',n:'Skills'},{id:'plugins',i:'🔌',n:'Плагины'},{id:'deploy',i:'🚀',n:'Деплой'},{id:'profile',i:'👤',n:'Профиль'}];return navs.map(n=>`<button class="mob-nav-btn ${S.view===n.id&&!S.trackId?'on':''}" data-v="${n.id}"><span class="ni">${n.i}</span>${n.n}</button>`).join('');}
+function renderMain(){
+  if(S.view==='mission'&&S.trackId)return`<div class="container">${renderMission()}</div>`;
+  if(S.view==='track'&&S.trackId)return`<div class="container">${renderTrack()}</div>`;
+  if(S.view==='skills')return`<div class="container">${renderSkills()}</div>`;
+  if(S.view==='plugins')return`<div class="container">${renderPlugins()}</div>`;
+  if(S.view==='deploy')return`<div class="container">${renderDeploy()}</div>`;
+  if(S.view==='profile')return`<div class="container">${renderProfile()}</div>`;
+  return`<div class="container">${renderMap()}</div>`;}
+/* ===== VIEWS ===== */
+function renderMap(){
+  const done=totDone(),total=totM();
+  return`<div style="margin-bottom:22px"><h2 style="font-size:22px;margin-bottom:4px">🗺 Путь обучения</h2><p style="color:var(--t2)">От основ до эксперта · ${done}/${total} миссий</p></div>
+  <div class="stats-row"><div class="stat"><div class="sv" style="color:var(--gold)">${S.xp.toLocaleString()}</div><div class="sl">XP</div></div><div class="stat"><div class="sv">${done}/${total}</div><div class="sl">Миссии</div></div><div class="stat"><div class="sv" style="color:var(--peri)">${S.badges.length}</div><div class="sl">Значки</div></div></div>
+  ${CHAPTERS.map((ch,ci)=>{
+    const prevDone=ci===0||CHAPTERS[ci-1].tracks.every(t=>tDone(t)>=TRACKS[t].missions.length);
+    return`<div class="chapter"><div class="ch-hdr" style="background:${ch.col}12;border:1.5px solid ${ch.col}33"><div class="ch-num" style="background:${ch.col}">${ci+1}</div><div style="flex:1"><div style="font-family:var(--fh);font-weight:900;font-size:16px">${ch.n}</div><div style="font-size:12px;color:var(--t2)">${ch.tracks.map(t=>TRACKS[t].title).join(' · ')}</div></div><span class="badge b-${ch.diff}">${ch.dl}</span></div>
+    <div class="track-grid">${ch.tracks.map(tid=>{const tr=TRACKS[tid];const c=tDone(tid),tot=tr.missions.length;const locked=!prevDone&&ci>0;const pct=Math.round(c/tot*100);
+      return`<div class="track-node ${locked?'locked':c>=tot?'done':''}" data-track="${tid}" style="${!locked&&c>0?`border-color:${tr.color}`:''}"><div style="font-size:30px;margin-bottom:7px">${tr.icon}</div><div style="font-family:var(--fh);font-weight:800;font-size:14px;margin-bottom:2px">${tr.title}</div><div style="font-size:11px;color:var(--t2);margin-bottom:6px">${tr.desc}</div><div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">${locked?`<span style="font-size:11px">🔒 Заблокировано</span>`:`<span style="font-size:11px;color:var(--t3)">${c}/${tot}</span>${c>=tot?`<span class="badge b-ok">✓</span>`:''}`}</div><div class="tn-prog"><div class="tn-fill" style="width:${pct}%;background:${tr.color}"></div></div></div>`;}).join('')}
+    </div></div>`;}).join('')}
+  <div style="text-align:center;padding:16px 0"><button class="btn btn-g" id="shareMapBtn">🔗 Поделиться прогрессом</button></div>`;}
+function renderTrack(){
+  const tr=gT();if(!tr)return'';const c=tDone(tr.id);
+  const hasQP=tr.setupPrompts?.length;
+  return`<button class="btn btn-g btn-sm" id="bk" style="margin-bottom:14px">← Карта</button>
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px"><span style="font-size:38px">${tr.icon}</span><div><h2 style="font-size:19px">${tr.title}</h2><p style="color:var(--t2)">${tr.desc} · ${c}/${tr.missions.length}</p></div></div>
+  ${hasQP?`<div class="qp-section"><div class="qp-title">⚡ Ready-to-use промпты — скопируй и вставь в Claude</div>${tr.setupPrompts.map((qp,qi)=>`<div class="qp-item"><div class="qp-name">${qp.name}</div><div class="qp-prompt">${esc(qp.prompt)}</div><div style="display:flex;gap:7px;align-items:center"><button class="btn-copy" data-qp="${qi}">📋 Копировать</button><a href="https://claude.ai" target="_blank" class="btn-open">🔗 Открыть Claude.ai</a></div></div>`).join('')}</div>`:''}
+  <div class="mission-path">${tr.missions.map((m,i)=>{const done=isDone(tr.id,i);const avail=i===0||isDone(tr.id,i-1);const cls=done?'done':avail?'active':'locked';
+    return`<div class="mp-item" data-i="${i}" ${!avail&&!done?'data-lk="1"':''}><div class="mp-dot ${cls}">${done?'✓':i+1}</div><div class="mp-card m-${cls}" style="${avail&&!done?`border-left:3px solid ${tr.color}`:''}"><div style="display:flex;align-items:center;justify-content:space-between"><div style="font-family:var(--fh);font-weight:800;font-size:14px">${m.t}</div><span class="badge b-xp">+${m.xp} XP</span></div><div style="font-size:12px;color:var(--t2);margin-top:4px">${done?'✅ Выполнено':avail?'▶ Начать':'🔒 Сначала предыдущую'}</div></div></div>`;}).join('')}</div>`;}
+function renderMission(){
+  const tr=gT(),m=gM();if(!tr||!m)return'';const done=isDone(tr.id,S.mIdx);
+  const tabs=[['theory','📚 Теория'],['example','💡 Промпты'],['practice','🎯 Практика']];
+  return`<button class="btn btn-g btn-sm" id="bkTr" style="margin-bottom:12px">← ${tr.title}</button>
+  <div style="background:${tr.color}10;border:1.5px solid ${tr.color}33;border-radius:var(--r);padding:16px;margin-bottom:16px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-size:11px;color:var(--t2)">${tr.icon} Миссия ${S.mIdx+1}/${tr.missions.length}</span><span class="badge b-xp">+${m.xp} XP</span></div>
+    <h2 style="font-size:18px;font-family:var(--fh)">${m.t}</h2>
+    ${done?'<div style="margin-top:6px"><span class="badge b-ok">✅ Выполнено</span></div>':''}
+  </div>
+  <div class="m-tabs">${tabs.map(([id,label])=>`<button class="m-tab ${S.tab===id?'on':''}" data-tab="${id}">${label}</button>`).join('')}</div>
+  ${S.tab==='theory'?rTheory(m):''}${S.tab==='example'?rExample(m):''}${S.tab==='practice'?rPractice(m,done,tr.color):''}`;}
+function rTheory(m){return`<div class="card theory" style="margin-bottom:14px">${m.theory}</div>
+  ${m.tips?`<div style="background:var(--green-l);border:1px solid var(--green);border-radius:var(--rs);padding:14px;margin-bottom:14px"><div style="font-family:var(--fh);font-weight:800;font-size:13px;color:var(--green);margin-bottom:8px">💡 Полезные советы</div>${m.tips.map(t=>`<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:5px"><span>✓</span><span style="font-size:12px;color:var(--t1)">${t}</span></div>`).join('')}</div>`:''}
+  <button class="btn btn-p btn-full" id="toEx">Далее → Промпты 💡</button>`;}
+function rExample(m){
+  const prompts=m.prompts||[{l:'Промпт',p:m.ex||''}];
+  return`<div class="card" style="margin-bottom:12px">
+    <p style="font-size:12px;color:var(--t2);margin-bottom:10px">📋 Готовые промпты — скопируй, вставь в Claude.ai, адаптируй:</p>
+    ${prompts.length>1?`<div class="prompt-tabs">${prompts.map((p,i)=>`<button class="p-tab ${S.promptTab===i?'on':''}" data-pi="${i}">${p.l}</button>`).join('')}</div>`:''}
+    <div class="prompt-box"><div class="pb-hdr"><span class="pb-label">${prompts[S.promptTab]?.l||'Промпт'}</span><div class="pb-actions"><button class="btn-copy" id="cpyMain">📋 Копировать</button><a href="https://claude.ai" target="_blank" class="btn-open">🔗 Claude.ai</a></div></div><div class="pb-text">${esc(prompts[S.promptTab]?.p||'')}</div></div>
+  </div>
+  <div class="card" style="background:var(--peri-l);border-color:var(--peri);border-width:1.5px;margin-bottom:12px"><div style="font-family:var(--fh);font-weight:800;font-size:14px;color:var(--peri-d);margin-bottom:6px">🎯 Твой вызов</div><p style="color:var(--t1)">${m.ch||m.challenge||''}</p></div>
+  <button class="btn btn-p btn-full" id="toPr">Перейти к практике 🎯</button>`;}
+function rPractice(m,done,col){
+  const steps=(m.steps||[{s:'Скопируй промпт с вкладки "Промпты"',copy:true},{s:'Открой claude.ai и вставь промпт'},{s:'Адаптируй под свой контекст и запусти'},{s:'Сохрани результат в Obsidian или заметках'}]);
+  return`<div class="card" style="margin-bottom:14px"><div style="font-family:var(--fh);font-weight:800;margin-bottom:12px">Как выполнить миссию:</div>
+    <div class="practice-steps">${steps.map((st,i)=>`<div class="ps-item"><div class="ps-num">${i+1}</div><div style="flex:1"><div class="ps-title">${st.s}</div>${st.copy?`<div style="margin-top:8px;display:flex;gap:7px;flex-wrap:wrap"><button class="btn-copy" id="cpyStep">📋 Копировать промпт</button><a href="https://claude.ai" target="_blank" class="btn-open">🔗 Открыть Claude.ai</a></div>`:''}${st.d?`<div class="ps-desc">${st.d}</div>`:''}</div></div>`).join('')}</div></div>
+  ${!done?`<button class="btn btn-ok btn-full" id="doneBtn">✅ Миссия выполнена! +${m.xp} XP</button><p style="text-align:center;font-size:11px;color:var(--t3);margin-top:7px">Нажми после выполнения вызова</p>`
+  :`<div style="text-align:center;padding:22px;background:var(--green-l);border-radius:var(--r)"><div style="font-size:44px;margin-bottom:8px">🎉</div><div style="font-family:var(--fh);font-weight:900;color:var(--green);font-size:17px">Отлично!</div>${S.mIdx<(gT()?.missions.length-1)?`<button class="btn btn-ok" id="nxtM" style="margin-top:14px">Следующая →</button>`:`<button class="btn btn-p" id="bkMap" style="margin-top:14px">На карту 🗺</button>`}</div>`}`;}
+function renderSkills(){
+  const skills=SKILLS[S.skillTab]||[];
+  return`<div class="sec-title">📦 Библиотека Skills</div><p class="sec-sub">Расширяй возможности Claude. Только доверенные источники.</p>
+  <div style="background:var(--peach-l);border:1px solid var(--peach);border-radius:var(--rs);padding:11px 13px;margin-bottom:16px;font-size:12px">⚠️ <strong>Безопасность:</strong> Skills могут выполнять код. Используй только от Anthropic и проверенных сообществом источников.</div>
+  <div class="lib-tabs"><button class="lib-tab ${S.skillTab==='anthropic'?'on':''}" data-st="anthropic">🏢 Anthropic Official (${SKILLS.anthropic.length})</button><button class="lib-tab ${S.skillTab==='community'?'on':''}" data-st="community">🌍 Community (${SKILLS.community.length})</button></div>
+  <div class="skill-grid">${skills.map(sk=>`<div class="skill-card"><div style="display:flex;align-items:center;gap:9px"><div class="sc-icon" style="background:${sk.bg}">${sk.i}</div><div style="flex:1"><div class="sc-name">${sk.n}</div><span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--bg);color:var(--t2)">${sk.tag}</span></div><div style="font-size:11px;color:var(--gold)">${'★'.repeat(sk.s)}</div></div><div class="sc-desc">${sk.d}</div><div class="sc-cmd" data-cmd="${esc(sk.cmd)}"><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px">${esc(sk.cmd)}</span><span style="color:var(--t3)">📋</span></div><a href="${sk.link}" target="_blank" style="font-size:11px;color:var(--peri);text-align:right">Документация ↗</a></div>`).join('')}</div>
+  <div style="margin-top:16px;text-align:center;display:flex;gap:8px;justify-content:center;flex-wrap:wrap"><a href="https://github.com/anthropics/skills" target="_blank" class="btn btn-g btn-sm">github.com/anthropics/skills</a><a href="https://github.com/travisvn/awesome-claude-skills" target="_blank" class="btn btn-g btn-sm">awesome-claude-skills</a></div>`;}
+function renderPlugins(){
+  const plugins=PLUGINS[S.pluginTab]||[];
+  return`<div class="sec-title">🔌 Библиотека Плагинов</div><p class="sec-sub">Подключай Claude к инструментам которые уже используешь.</p>
+  <div class="lib-tabs"><button class="lib-tab ${S.pluginTab==='mcp'?'on':''}" data-pt="mcp">🖥 MCP Серверы (${PLUGINS.mcp.length})</button><button class="lib-tab ${S.pluginTab==='connectors'?'on':''}" data-pt="connectors">🔗 Коннекторы (${PLUGINS.connectors.length})</button></div>
+  <div class="skill-grid">${plugins.map(p=>`<div class="skill-card"><div style="display:flex;align-items:center;gap:9px"><div class="sc-icon" style="background:${p.bg}">${p.i}</div><div style="flex:1"><div class="sc-name">${p.n} ${p.official?'<span style="font-size:9px;background:var(--blue-l);color:var(--blue);padding:2px 6px;border-radius:99px;font-family:var(--fh);font-weight:700">Official</span>':''}</div><div style="font-size:10px;color:var(--gold)">${'★'.repeat(p.s)}</div></div></div><div class="sc-desc">${p.d}</div><div class="sc-cmd" data-cmd="${esc(p.cmd)}"><span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px">${esc(p.cmd)}</span><span style="color:var(--t3)">📋</span></div><div style="display:flex;justify-content:space-between;align-items:center"><button class="btn-copy" data-cmd="${esc(p.cmd)}">📋 Копировать</button><a href="${p.link}" target="_blank" style="font-size:11px;color:var(--peri)">Подробнее ↗</a></div></div>`).join('')}</div>
+  ${S.pluginTab==='connectors'?`<div style="margin-top:14px;padding:13px;background:var(--peri-l);border-radius:var(--rs);font-size:12px;color:var(--t1)">ℹ️ Официальные коннекторы: <a href="https://claude.ai" target="_blank">claude.ai</a> → Settings → Connectors (Pro/Team план)</div>`:''}`;}function renderDeploy(){
+  var ways=[
+    {icon:'⚡',title:'Netlify Drop — 30 секунд',sub:'Лучший старт · Без аккаунта · Бесплатно',col:'var(--green)',
+     steps:[{n:1,t:'Открой',d:'app.netlify.com/drop'},{n:2,t:'Перетащи файл',d:'Drag & drop index.html в браузер'},{n:3,t:'Ссылка',d:'magical-name.netlify.app — сразу работает'},{n:4,t:'Домен (опц.)',d:'Site settings → Domain management → Add custom domain'}],
+     note:'⏱️ 30 сек без домена · ~30 мин с доменом',btn:'Открыть Netlify Drop',url:'https://app.netlify.com/drop'},
+    {icon:'🐙',title:'GitHub Pages — постоянный URL',sub:'Бесплатно навсегда · username.github.io',col:'var(--peri)',
+     steps:[{n:1,t:'Аккаунт',d:'github.com'},{n:2,t:'Репозиторий',d:'github.com/new → claude-academy → Create'},{n:3,t:'Загрузи',d:'Add file → Upload → index.html → Commit'},{n:4,t:'Pages',d:'Settings → Pages → main / (root) → Save'},{n:5,t:'URL',d:'username.github.io/claude-academy (1-2 мин)'}],
+     note:'⏱️ ~5 мин без домена · ~1-2 часа с доменом',btn:'Создать репозиторий',url:'https://github.com/new'},
+    {icon:'⚡',title:'Vercel — быстрый CDN',sub:'10 секунд · project.vercel.app',col:'var(--gold)',
+     steps:[{n:1,t:'Аккаунт',d:'vercel.com'},{n:2,t:'New Project',d:'Add New → Project → Upload папку с index.html'},{n:3,t:'Deploy',d:'Нажми Deploy — 10 секунд'},{n:4,t:'URL',d:'claude-academy-xxx.vercel.app'},{n:5,t:'Домен',d:'Settings → Domains → Add → настрой DNS'}],
+     note:'⏱️ 10 сек без домена · ~30 мин с доменом',btn:'Открыть Vercel',url:'https://vercel.com/new'}
+  ];
+  var domains=[
+    {n:'reg.ru',p:'от 99₽/год',d:'Лучший для России. Рублёвые карты. Поддержка на русском.',u:'https://reg.ru',ru:true},
+    {n:'Namecheap',p:'от $9/год',d:'.com от $9, Privacy Guard бесплатно, удобный DNS.',u:'https://namecheap.com',ru:false},
+    {n:'GoDaddy',p:'от $10/год',d:'Крупнейший регистратор. Простой интерфейс.',u:'https://godaddy.com',ru:false},
+    {n:'Cloudflare Registrar',p:'~$9/год',d:'Самые дешёвые цены без наценки. Идеально при хостинге на Cloudflare Pages.',u:'https://cloudflare.com/products/registrar',ru:false}
+  ];
+  return '<div class="sec-title">🚀 Опубликовать в сети</div>' +
+  '<p class="sec-sub">Бесплатно, без VPN, на любом устройстве в мире. Выбери способ:</p>' +
+  '<div style="background:var(--green-l);border:1.5px solid var(--green);border-radius:var(--r);padding:16px;margin-bottom:18px">' +
+    '<div style="font-family:var(--fh);font-weight:900;color:var(--green);margin-bottom:4px">✅ Файл готов к публикации прямо сейчас</div>' +
+    '<p style="font-size:13px;color:var(--t1)">Скачай index.html и загрузи на любой из хостингов ниже — работает сразу.</p>' +
+  '</div>' +
+  ways.map(function(w){
+    return '<div class="deploy-card" style="border-left:4px solid '+w.col+';margin-bottom:16px">' +
+      '<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">' +
+        '<span style="font-size:26px">'+w.icon+'</span>' +
+        '<div><div style="font-family:var(--fh);font-weight:900;font-size:16px">'+w.title+'</div>' +
+        '<div style="font-size:12px;color:'+w.col+';font-weight:700">'+w.sub+'</div></div>' +
+      '</div>' +
+      w.steps.map(function(s){
+        return '<div class="deploy-step"><div class="deploy-num" style="background:'+w.col+'">'+s.n+'</div>' +
+          '<div><div class="ps-title">'+s.t+'</div><div class="ps-desc">'+s.d+'</div></div></div>';
+      }).join('') +
+      '<div style="background:var(--bg);border-radius:var(--rs);padding:9px;margin-top:10px;font-size:12px;color:var(--t2)">'+w.note+'</div>' +
+      '<a href="'+w.url+'" target="_blank" class="btn btn-ok btn-full" style="margin-top:12px;display:flex">🌐 '+w.btn+' →</a>' +
+    '</div>';
+  }).join('') +
+  '<div class="deploy-card" style="background:var(--peri-l);border-color:var(--peri);margin-bottom:16px">' +
+    '<div style="font-family:var(--fh);font-weight:900;font-size:15px;color:var(--peri-d);margin-bottom:12px">🌐 Где купить доменное имя</div>' +
+    domains.map(function(d){
+      return '<div style="display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)">' +
+        '<div style="flex:1">' +
+          '<div style="font-family:var(--fh);font-weight:800;font-size:13px">'+d.n+(d.ru?' 🇷🇺':'')+' — <span style="color:var(--peri)">'+d.p+'</span></div>' +
+          '<div style="font-size:12px;color:var(--t2)">'+d.d+'</div>' +
+        '</div>' +
+        '<a href="'+d.u+'" target="_blank" class="btn btn-g btn-sm">Открыть ↗</a>' +
+      '</div>';
+    }).join('') +
+    '<div style="margin-top:10px;font-size:12px;color:var(--t2)">💡 Купи домен → подключи к хостингу через DNS настройки. Обновляется 30-60 минут (иногда до 24 часов).</div>' +
+  '</div>' +
+  '<div class="card" style="margin-bottom:14px">' +
+    '<div style="font-family:var(--fh);font-weight:900;margin-bottom:10px">📊 Сравнение способов</div>' +
+    '<table style="width:100%;border-collapse:collapse;font-size:12px">' +
+      '<tr style="background:var(--bg)"><th style="padding:7px;text-align:left;border-bottom:2px solid var(--border)">Хостинг</th>' +
+      '<th style="padding:7px;border-bottom:2px solid var(--border)">Скорость</th>' +
+      '<th style="padding:7px;border-bottom:2px solid var(--border)">Цена</th>' +
+      '<th style="padding:7px;border-bottom:2px solid var(--border)">Домен</th>' +
+      '<th style="padding:7px;border-bottom:2px solid var(--border)">HTTPS</th></tr>' +
+      ['Netlify Drop|30 сек ⭐|Бесплатно|Легко|Авто','GitHub Pages|~5 мин|Бесплатно|Просто|Авто','Vercel|10 сек ⭐|Бесплатно|Просто|Авто']
+      .map(function(r){var p=r.split("|");return '<tr style="border-bottom:1px solid var(--border)"><td style="padding:7px;font-weight:700">'+p[0]+'</td><td style="padding:7px;text-align:center">'+p[1]+'</td><td style="padding:7px;text-align:center;color:var(--green)">'+p[2]+'</td><td style="padding:7px;text-align:center">✅ '+p[3]+'</td><td style="padding:7px;text-align:center">✅ '+p[4]+'</td></tr>';}).join('') +
+    '</table>' +
+  '</div>' +
+  '<div style="background:var(--peri-l);border:1.5px solid var(--peri);border-radius:var(--r);padding:16px">' +
+    '<div style="font-family:var(--fh);font-weight:800;color:var(--peri-d);margin-bottom:6px">🔗 Шеринг прогресса</div>' +
+    '<p style="font-size:12px;color:var(--t2);margin-bottom:10px">После публикации — ссылка с прогрессом открывается на любом устройстве.</p>' +
+    '<button class="btn btn-p btn-sm" id="copyShareDeploy">📋 Скопировать ссылку с прогрессом</button>' +
+  '</div>';
+}
+
+
+function renderProfile(){
+  const l=getLvl();const done=totDone(),total=totM();const pct=lvlPct();
+  return`<div class="sec-title">👤 Профиль</div>
+  <div class="card" style="margin-bottom:14px"><div style="font-family:var(--fh);font-weight:800;margin-bottom:10px">✏️ Твоё имя</div>
+    <div style="display:flex;gap:9px"><input type="text" id="nameIn" value="${esc(S.name)}" placeholder="Введи имя..." maxlength="30" style="flex:1"/><button class="btn btn-p btn-sm" id="saveNameBtn">Сохранить</button></div>
+    ${S.name?`<div style="font-size:11px;color:var(--green);margin-top:6px">✅ Сохранено</div>`:''}
+  </div>
+  <div class="card" style="margin-bottom:14px;text-align:center"><div class="lvl-ring" style="width:68px;height:68px;font-size:26px;margin:0 auto 12px">${l.idx}</div>
+    <div style="font-family:var(--fh);font-size:20px;font-weight:900">${S.name||'Аноним'}</div>
+    <div style="font-family:var(--fh);color:var(--peri);font-weight:700;margin:4px 0">${l.n}</div>
+    <div style="color:var(--t2)">${S.xp.toLocaleString()} XP · ${done}/${total}</div>
+    <div class="xp-bar" style="max-width:220px;margin:10px auto;height:9px"><div class="xp-fill" style="width:${pct}%"></div></div>
+    <div style="font-size:11px;color:var(--t3)">${pct}% до уровня ${l.idx+1}</div>
+  </div>
+  <div class="stats-row" style="margin-bottom:18px">
+    <div class="stat"><div class="sv" style="color:var(--gold)">${S.xp.toLocaleString()}</div><div class="sl">XP</div></div>
+    <div class="stat"><div class="sv">${done}/${total}</div><div class="sl">Миссии</div></div>
+    <div class="stat"><div class="sv" style="color:var(--peri)">${S.badges.length}</div><div class="sl">Значки</div></div>
+  </div>
+  <div class="card" style="margin-bottom:14px;background:var(--peri-l);border-color:var(--peri)">
+    <div style="font-family:var(--fh);font-weight:800;color:var(--peri-d);margin-bottom:8px">🔗 Поделиться прогрессом</div>
+    <p style="font-size:12px;color:var(--t2);margin-bottom:10px">Ссылка открывается на любом устройстве в мире — ПК, телефон, планшет.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-p btn-sm" id="shareBtn">📋 Скопировать ссылку</button>
+      <button class="btn btn-g btn-sm" id="resetBtn" style="color:var(--magenta);border-color:var(--magenta)">🗑 Сброс</button>
+    </div>
+  </div>
+  <div style="font-family:var(--fh);font-weight:800;font-size:16px;margin-bottom:12px">Достижения (${S.badges.length}/${BADGES.length})</div>
+  <div class="achievements-grid">${BADGES.map(b=>`<div class="ach-card ${S.badges.includes(b.id)?'earned':''}"><div class="ach-icon">${b.i}</div><div class="ach-name">${b.n}</div><div class="ach-desc">${S.badges.includes(b.id)?'✅ Есть':b.d}</div></div>`).join('')}</div>`;}
+/* ===== SHARED VIEW ===== */
+function renderShared(){
+  const d=S.sharedData||{};const xi=LVL_IDX(d.xp||0);const totalM2=totM();const doneM=Object.values(d.done||{}).reduce((a,arr)=>a+arr.length,0);
+  return`<div class="shared-wrap"><div style="background:var(--white);border:1.5px solid var(--border);border-radius:24px;padding:36px;max-width:480px;width:100%;box-shadow:var(--shadow-lg);text-align:center">
+    <div style="font-size:52px;margin-bottom:10px">🎓</div>
+    <div style="font-size:11px;color:var(--t2);margin-bottom:4px">Профиль из Claude Academy</div>
+    <div style="font-family:var(--fh);font-size:24px;font-weight:900;margin-bottom:4px">${esc(d.name||'Пользователь')}</div>
+    <div style="display:inline-flex;align-items:center;gap:6px;padding:5px 14px;background:var(--peri-l);border-radius:99px;font-family:var(--fh);font-weight:700;color:var(--peri);font-size:13px;margin-bottom:18px">${LVL[xi].n}</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:18px">
+      <div style="background:var(--gold-l);border-radius:var(--rs);padding:12px"><div style="font-family:var(--fh);font-size:20px;font-weight:900;color:var(--gold)">${(d.xp||0).toLocaleString()}</div><div style="font-size:10px;color:var(--t3)">XP</div></div>
+      <div style="background:var(--bg);border-radius:var(--rs);padding:12px"><div style="font-family:var(--fh);font-size:20px;font-weight:900">${doneM}/${totalM2}</div><div style="font-size:10px;color:var(--t3)">Миссий</div></div>
+      <div style="background:var(--peri-l);border-radius:var(--rs);padding:12px"><div style="font-family:var(--fh);font-size:20px;font-weight:900;color:var(--peri)">${(d.badges||[]).length}</div><div style="font-size:10px;color:var(--t3)">Значков</div></div>
+    </div>
+    <div style="margin-bottom:16px;text-align:left">
+      ${CHAPTERS.slice(0,3).map(ch=>ch.tracks.map(tid=>{const tr=TRACKS[tid];const c=(d.done?.[tid]||[]).length,tot=tr.missions.length,p=Math.round(c/tot*100);
+        return`<div style="display:flex;align-items:center;gap:8px;margin-bottom:5px"><span style="width:18px">${tr.icon}</span><span style="font-size:12px;flex:1">${tr.title}</span><span style="font-size:10px;color:var(--t3);width:30px;text-align:right">${c}/${tot}</span><div style="width:70px;height:5px;background:var(--border);border-radius:99px;overflow:hidden"><div style="height:100%;width:${p}%;background:${tr.color}"></div></div></div>`;}).join('')).join('')}
+    </div>
+    <div style="padding:14px;background:var(--green-l);border-radius:var(--rs);margin-bottom:16px"><div style="font-family:var(--fh);font-weight:700;color:var(--green);margin-bottom:4px">Начни своё обучение!</div><div style="font-size:12px;color:var(--t2)">Тот же файл — твой собственный прогресс</div></div>
+    <button class="btn btn-ok btn-full" id="startOwn">🚀 Начать своё обучение</button>
+  </div></div>`;}
+/* ===== BIND ===== */
+function bindAll(){
+  // Navigation buttons (sidebar + mobile nav)
+  document.querySelectorAll('[data-v]').forEach(function(b){
+    b.addEventListener('click', function(){ S.view=b.dataset.v; S.trackId=null; render(); });
+  });
+
+  // Track cards (map + sidebar) — skip locked nodes
+  document.querySelectorAll('[data-track]').forEach(function(b){
+    b.addEventListener('click', function(){
+      if(b.classList.contains('locked')) return;
+      var t=b.dataset.track;
+      if(TRACKS[t]){ S.trackId=t; S.view='track'; render(); }
+    });
+  });
+
+  // Back buttons
+  var bk=document.getElementById('bk');
+  if(bk) bk.addEventListener('click',function(){ S.view='map'; S.trackId=null; render(); });
+
+  var bkTr=document.getElementById('bkTr');
+  if(bkTr) bkTr.addEventListener('click',function(){ S.view='track'; render(); });
+
+  var bkMap=document.getElementById('bkMap');
+  if(bkMap) bkMap.addEventListener('click',function(){ S.view='map'; S.trackId=null; render(); });
+
+  // Mission items (unlocked only)
+  document.querySelectorAll('.mp-item:not([data-lk])[data-i]').forEach(function(b){
+    b.addEventListener('click', function(){
+      S.mIdx=parseInt(b.dataset.i);
+      S.view='mission'; S.tab='theory'; S.promptTab=0;
+      render();
+    });
+  });
+
+  // Mission content tabs
+  document.querySelectorAll('.m-tab[data-tab]').forEach(function(t){
+    t.addEventListener('click', function(){ S.tab=t.dataset.tab; render(); });
+  });
+  var toEx=document.getElementById('toEx');
+  if(toEx) toEx.addEventListener('click',function(){ S.tab='example'; render(); });
+  var toPr=document.getElementById('toPr');
+  if(toPr) toPr.addEventListener('click',function(){ S.tab='practice'; render(); });
+
+  // Prompt variant tabs
+  document.querySelectorAll('.p-tab[data-pi]').forEach(function(t){
+    t.addEventListener('click', function(){ S.promptTab=parseInt(t.dataset.pi); render(); });
+  });
+
+  // Copy main/step prompt buttons
+  var cpyMain=document.getElementById('cpyMain');
+  if(cpyMain) cpyMain.addEventListener('click', async function(){
+    var m=gM();
+    var p=((m&&m.prompts)||[])[S.promptTab];
+    await copyText((p&&p.p)||(m&&m.ex)||'');
+    toast('📋','Промпт скопирован!');
+  });
+  var cpyStep=document.getElementById('cpyStep');
+  if(cpyStep) cpyStep.addEventListener('click', async function(){
+    var m=gM();
+    var p=((m&&m.prompts)||[])[S.promptTab];
+    await copyText((p&&p.p)||(m&&m.ex)||'');
+    toast('📋','Промпт скопирован!');
+  });
+
+  // Complete mission
+  var doneBtn=document.getElementById('doneBtn');
+  if(doneBtn) doneBtn.addEventListener('click',function(){ doComplete(S.trackId,S.mIdx); render(); });
+
+  // Next mission
+  var nxtM=document.getElementById('nxtM');
+  if(nxtM) nxtM.addEventListener('click',function(){ S.mIdx++; S.tab='theory'; S.promptTab=0; render(); });
+
+  // Library tabs
+  document.querySelectorAll('.lib-tab[data-st]').forEach(function(t){
+    t.addEventListener('click', function(){ S.skillTab=t.dataset.st; render(); });
+  });
+  document.querySelectorAll('.lib-tab[data-pt]').forEach(function(t){
+    t.addEventListener('click', function(){ S.pluginTab=t.dataset.pt; render(); });
+  });
+
+  // Copy skill/plugin install commands
+  document.querySelectorAll('.sc-cmd[data-cmd], .btn-copy[data-cmd]').forEach(function(el){
+    el.addEventListener('click', async function(){
+      await copyText(el.dataset.cmd);
+      toast('📋','Скопировано!');
+    });
+  });
+
+  // Quick prompts (setup/memory tracks) — FIXED: was missing closing paren for forEach
+  document.querySelectorAll('.btn-copy[data-qp]').forEach(function(b){
+    b.addEventListener('click', async function(){
+      var tr=gT();
+      var idx=parseInt(b.dataset.qp);
+      if(tr && tr.setupPrompts && tr.setupPrompts[idx]){
+        await copyText(tr.setupPrompts[idx].prompt);
+        toast('📋','Промпт скопирован!');
+      }
+    });
+  });
+
+  // Profile — save name
+  var saveNameBtn=document.getElementById('saveNameBtn');
+  if(saveNameBtn) saveNameBtn.addEventListener('click', function(){
+    var inp=document.getElementById('nameIn');
+    var v=inp && inp.value && inp.value.trim();
+    if(v){ S.name=v; save(); toast('\u2705','Имя "'+v+'" сохранено','#3DA876'); render(); }
+  });
+
+  // Share buttons
+  ['shareBtn','shareMapBtn'].forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.addEventListener('click', async function(){
+      await copyText(shareURL());
+      toast('\uD83D\uDD17','Ссылка скопирована! Открывается на любом устройстве.','#6667AB');
+    });
+  });
+  var csd=document.getElementById('copyShareDeploy');
+  if(csd) csd.addEventListener('click', async function(){
+    await copyText(shareURL());
+    toast('\uD83D\uDD17','Ссылка скопирована!','#6667AB');
+  });
+
+  // Reset progress
+  var resetBtn=document.getElementById('resetBtn');
+  if(resetBtn) resetBtn.addEventListener('click', function(){
+    if(confirm('Сбросить весь прогресс? Это нельзя отменить.')){
+      S.done={}; S.xp=0; S.badges=[];
+      save();
+      toast('\uD83D\uDDD1','Прогресс сброшен','#BB2649');
+      render();
+    }
+  });
+}
+
+function bindShared(){
+  var startOwn=document.getElementById('startOwn');
+  if(startOwn) startOwn.addEventListener('click', function(){
+    S.viewingShared=false; S.sharedData=null;
+    history.replaceState(null,'',location.pathname);
+    render();
+  });
+}
+/* ===== INIT ===== */
+function init(){
+  load();
+  try{
+    var hash=location.hash;
+    if(hash && hash.indexOf('#p=')===0){
+      // Decode base64 with proper UTF-8 handling (escape is deprecated)
+      var b64=hash.slice(3);
+      var bin=atob(b64);
+      var bytes=new Uint8Array(bin.length);
+      for(var i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
+      var raw=new TextDecoder().decode(bytes);
+      var d=JSON.parse(raw);
+      // If URL has someone else's data (different from current saved state)
+      var hasMeaningfulData=(d.xp>0)||Object.keys(d.done||{}).length>0;
+      var isOwnData=(d.xp===S.xp && JSON.stringify(d.done)===JSON.stringify(S.done));
+      if(hasMeaningfulData && !isOwnData && d.name && d.name!==S.name){
+        // Viewing someone else's shared profile
+        S.viewingShared=true; S.sharedData=d;
+      } else {
+        // Load own progress from URL (e.g. opening on new device)
+        ['xp','done','badges','name'].forEach(function(k){ if(d[k]!==undefined) S[k]=d[k]; });
+        save();
+        toast('🔗','Прогресс загружен из ссылки','#6667AB');
+      }
+    }
+  } catch(e){ /* ignore malformed hash */ }
+  render();
+}
+
+init();
+</script>
+</body>
+</html>
